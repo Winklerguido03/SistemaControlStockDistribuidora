@@ -1,0 +1,20 @@
+header nav{
+    background-color:yellow; !important
+}
+
+.btnLogin{
+    text-decoration:none;
+    padding:10px;
+    border:1px solid orange;
+    background-color:orange;
+    color:black;
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f2f5;
+    min-height: 88vh;
+}
