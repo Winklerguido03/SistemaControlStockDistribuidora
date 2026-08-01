@@ -22,7 +22,7 @@
 <header>
 
  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-   <a class="navbar-brand" href="index.jsp">DISTRIBUIDORA</a>
+   <a class="navbar-brand" href="login.jsp">DISTRIBUIDORA</a>
    </div>
  </nav>
 
@@ -32,11 +32,11 @@
 
     <div class="formulario">
         <h2>INICIAR SESIÓN</h2>
-    <form action="seLogin" method="POST">
+    <form action="sesion" method="POST">
 
-    <label for="txtUser">CORREO</label>
+    <label for="txtUser">NOMBRE DE USUARIO</label>
     <br>
-    <input type="text" name="txtCorreo" id="txtCorreo" placeholder="usuario@gmail.com" required />
+    <input type="text" name="txtUsername" id="txtUsername" placeholder="Admin123" required />
     <br>
     <label for="txtPass">CONTRASEÑA</label>
     <br>

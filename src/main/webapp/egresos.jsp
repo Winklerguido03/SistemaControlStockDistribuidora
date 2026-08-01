@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page isELIgnored="false" %>
 
 <html>
 <!doctype html>
@@ -21,10 +22,36 @@
 <body>
 <header>
 
- <nav class="navbar navbar-expand-lg navbar-light bg-light">
-   <a class="navbar-brand" href="index.jsp">DISTRIBUIDORA</a>
-   </div>
- </nav>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="index.jsp">DISTRIBUIDORA</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="productos.jsp">Productos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="proveedores.jsp">Proveedores</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="categorias.jsp">Categorias</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="ingresos.jsp">Ingresos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="egresos.jsp">Egresos</a>
+        </li>
+        <c:if test="${sessionScope.usuario != null}">
+                <a class="btnLogin" href="login.jsp">CERRAR SESION</a>
+                </c:if>
+      </ul>
+    </div>
+  </div>
+</nav>
 
 </header>
 

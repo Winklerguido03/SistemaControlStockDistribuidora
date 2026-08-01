@@ -45,7 +45,9 @@
         <li class="nav-item">
           <a class="nav-link" href="egresos.jsp">Egresos</a>
         </li>
-        <a class="btnLogin" href="login.jsp">INICIAR SESION</a>
+        <c:if test="${sessionScope.usuario != null}">
+                <a class="btnLogin" href="login.jsp">CERRAR SESION</a>
+                </c:if>
       </ul>
     </div>
   </div>

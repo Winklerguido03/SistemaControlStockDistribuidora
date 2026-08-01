@@ -27,7 +27,7 @@ public interface AdmConexion {
       String envPass = System.getenv("DB_PASS");
 
       HikariConfig config = new HikariConfig();
-      config.setPoolName("ProdePool");
+      config.setPoolName("GestionPool");
       config.setDriverClassName("com.mysql.cj.jdbc.Driver");
       config.setConnectionTestQuery("SELECT 1");
 

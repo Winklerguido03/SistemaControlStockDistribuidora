@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page isELIgnored="false" %>
 
 <html>
 <!doctype html>
@@ -44,7 +45,9 @@
         <li class="nav-item">
           <a class="nav-link" href="egresos.jsp">Egresos</a>
         </li>
-        <a class="btnLogin" href="login.jsp">INICIAR SESION</a>
+        <c:if test="${sessionScope.usuario != null}">
+                <a class="btnLogin" href="login.jsp">CERRAR SESION</a>
+                </c:if>
       </ul>
     </div>
   </div>

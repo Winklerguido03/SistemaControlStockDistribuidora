@@ -17,7 +17,7 @@ public class UsuarioDAO implements DAO<Usuario, Integer>, AdmConexion {
                     "VALUES (?, ?, ?, ?)";
 
     private static final String SQL_UPDATE =
-            "UPDATE usuarios SET " +
+            "UPDATE usuario SET " +
                     "nombre = ?, apellido = ?, username = ?, password = ? " +
                     "WHERE idUsuario = ?";
 
@@ -29,6 +29,9 @@ public class UsuarioDAO implements DAO<Usuario, Integer>, AdmConexion {
 
     private static final String SQL_GETBYID =
             "SELECT * FROM usuario WHERE idUsuario = ?";
+
+    private static final String SQL_GETBYUSERNAME =
+            "SELECT * FROM usuario WHERE username = ?";
 
     @Override
     public List<Usuario> getAll() {
@@ -215,5 +218,37 @@ public class UsuarioDAO implements DAO<Usuario, Integer>, AdmConexion {
             throw new RuntimeException(e);
         }
         return existe;
+    }
+
+    public Usuario getByUsername(String id) {
+
+        PreparedStatement psBuscar = null;
+        ResultSet rs = null;
+        Usuario usuario = null;
+
+        try {
+            conn = obtenerConexion();
+            psBuscar = conn.prepareStatement(SQL_GETBYUSERNAME);
+            psBuscar.setString(1, id);
+            rs = psBuscar.executeQuery();
+
+            if (rs.next()) {
+                usuario = new Usuario();
+                usuario.setIdUsuario(rs.getInt("idUsuario"));
+                usuario.setNombre(rs.getString("nombre"));
+                usuario.setApellido(rs.getString("apellido"));
+                usuario.setUsername(rs.getString("username"));
+                usuario.setPassword(rs.getString("password"));
+
+            }
+
+            rs.close();
+            psBuscar.close();
+            conn.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return usuario;
     }
 }
