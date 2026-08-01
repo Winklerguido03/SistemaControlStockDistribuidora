@@ -39,12 +39,7 @@
         <li class="nav-item">
           <a class="nav-link" href="categorias.jsp">Categorias</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="ingresos.jsp">Ingresos</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="egresos.jsp">Egresos</a>
-        </li>
+
         <c:if test="${sessionScope.usuario != null}">
                 <a class="btnLogin" href="login.jsp">CERRAR SESION</a>
                 </c:if>
@@ -55,9 +50,35 @@
 
 </header>
     <main>
-          <c:if test="${sessionScope.usuario == null}">
-                <p>NO HAY DATOS,POR FAVOR INICIE SESIÓN</p>
-          </c:if>
+
+          <c:forEach var="categoria" items="${listaCategorias}">
+
+              <div class="d-flex justify-content-between align-items-center border rounded p-2 mb-2">
+
+                  <a href="ProductoServlet?operacion=listarPorCategoria&id=${categoria.idCategoria}"
+                     class="text-decoration-none fw-bold">
+                      ${categoria.nombre}
+                  </a>
+
+                  <div>
+
+                      <a href="CategoriaServlet?operacion=editar&id=${categoria.idCategoria}"
+                         class="btn btn-warning btn-sm">
+                          <i class="bi bi-pencil"></i>
+                      </a>
+
+                      <a href="CategoriaServlet?operacion=eliminar&id=${categoria.idCategoria}"
+                         class="btn btn-danger btn-sm">
+                          <i class="bi bi-trash"></i>
+                      </a>
+
+                  </div>
+
+              </div>
+
+          </c:forEach>
+
+          <a class="btnAgregar" href="agregarCategoria.jsp">+</a>
     </main>
 
 

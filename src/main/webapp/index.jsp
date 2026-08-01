@@ -37,13 +37,7 @@
           <a class="nav-link" href="proveedores.jsp">Proveedores</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="categorias.jsp">Categorias</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="ingresos.jsp">Ingresos</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="egresos.jsp">Egresos</a>
+          <a class="nav-link" href="CategoriaServlet">Categorias</a>
         </li>
         <c:if test="${sessionScope.usuario != null}">
         <a class="btnLogin" href="login.jsp">CERRAR SESION</a>

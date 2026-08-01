@@ -31,27 +31,16 @@
 <main>
 
     <div class="formulario">
-        <h2>AGREGAR PROVEEDOR</h2>
-    <form action="ProveedorServlet" method="POST">
+        <h2>AGREGAR CATEGORIA</h2>
+    <form action="CategoriaServlet" method="POST">
 
     <input type="hidden" name="txtId" id="txtId" value="-1" />
     <input type="hidden" name="operacion" id="operacion" value="nuevo" />
 
-    <label for="txtNombreProveedor">Nombre Proveedor</label>
+    <label for="txtNombreCategoria">Nombre Categoria</label>
     <br>
-    <input type="text" name="txtNombreProveedor" id="txtNombreProveedor" placeholder="Nombre Proveedor" required />
+    <input type="text" name="txtNombreCategoria" id="txtNombreCategoria" placeholder="Nombre Categoria" required />
     <br>
-    <label for="txtTelefono">Telefono</label>
-    <br>
-    <input type="text" name="txtTelefono" id="txtTelefono" placeholder="Telefono" required />
-    <br>
-    <label for="txtEmail">Email</label>
-    <br>
-    <input type="text" name="txtEmail" id="txtEmail" placeholder="proveedor@gmail.com" required />
-    <br>
-    <label for="txtDireccion">Dirección</label>
-    <br>
-    <input type="text" name="txtDireccion" id="txtDireccion" placeholder="Calle 55" required />
 
     <br>
     <input class="btn" type="submit" value="Enviar" />

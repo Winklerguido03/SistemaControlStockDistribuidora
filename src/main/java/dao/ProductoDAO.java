@@ -28,10 +28,18 @@ public class ProductoDAO implements DAO <Producto, Integer>, AdmConexion {
             "DELETE FROM producto WHERE idProducto = ?";
 
     private static final String SQL_GETALL =
-            "SELECT * FROM producto ORDER BY idProducto";
+            "SELECT p.*, c.nombre AS nombreCategoria, pr.nombre AS nombreProveedor " +
+                    "FROM producto p " +
+                    "INNER JOIN categoria c ON p.Categoria_idCategoria = c.idCategoria " +
+                    "INNER JOIN proveedor pr ON p.Proveedor_idProveedor = pr.idProveedor " +
+                    "ORDER BY p.idProducto";
 
     private static final String SQL_GETBYID =
-            "SELECT * FROM producto WHERE idProducto = ?";
+            "SELECT p.*, c.nombre AS nombreCategoria, pr.nombre AS nombreProveedor " +
+                    "FROM producto p " +
+                    "INNER JOIN categoria c ON p.Categoria_idCategoria = c.idCategoria " +
+                    "INNER JOIN proveedor pr ON p.Proveedor_idProveedor = pr.idProveedor " +
+                    "WHERE p.idProducto = ?";
 
     @Override
     public List<Producto> getAll() {
@@ -47,11 +55,19 @@ public class ProductoDAO implements DAO <Producto, Integer>, AdmConexion {
 
             while (rs.next()) {
                 Producto producto = new Producto();
-                producto.setIdProducto(rs.getInt("idProveedor"));
+                producto.setIdProducto(rs.getInt("idProducto"));
                 producto.setNombre(rs.getString("nombre"));
-                producto.setCategoriaProducto(new Categoria(rs.getString("categoria")));
                 producto.setPrecioCompra(rs.getInt("precio_compra"));
                 producto.setPrecioVenta(rs.getInt("precio_venta"));
+                Categoria categoria = new Categoria();
+                categoria.setIdCategoria(rs.getInt("Categoria_idCategoria"));
+                categoria.setNombre(rs.getString("nombreCategoria"));
+                producto.setCategoriaProducto(categoria);
+
+                Proveedor proveedor = new Proveedor();
+                proveedor.setIdProveedor(rs.getInt("Proveedor_idProveedor"));
+                proveedor.setNombre(rs.getString("nombreProveedor"));
+                producto.setProveedorProducto(proveedor);
                 listaProductos.add(producto);
             }
 
@@ -78,10 +94,11 @@ public class ProductoDAO implements DAO <Producto, Integer>, AdmConexion {
             pst = conn.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);
 
             pst.setString(1, producto.getNombre());
-            pst.setString(2, producto.getCategoriaProducto().toString());
-            pst.setInt(3, producto.getPrecioCompra());
-            pst.setInt(4, producto.getPrecioVenta());
-            pst.setInt(5,producto.getStock());
+            pst.setInt(2, producto.getPrecioCompra());
+            pst.setInt(3, producto.getPrecioVenta());
+            pst.setInt(4,producto.getStock());
+            pst.setInt(5, producto.getCategoriaProducto().getIdCategoria());
+            pst.setInt(6,producto.getProveedorProducto().getIdProveedor());
 
             int resultado = pst.executeUpdate();
             if (resultado == 1) {
@@ -114,12 +131,12 @@ public class ProductoDAO implements DAO <Producto, Integer>, AdmConexion {
                 pst = conn.prepareStatement(SQL_UPDATE);
 
                 pst.setString(1, producto.getNombre());
-                pst.setString(2, producto.getCategoriaProducto().getNombre());
-                pst.setInt(3, producto.getPrecioCompra());
-                pst.setInt(4, producto.getPrecioVenta());
-                pst.setInt(5, producto.getStock());
-
-                pst.setInt(6, producto.getIdProducto());
+                pst.setInt(2, producto.getPrecioCompra());
+                pst.setInt(3, producto.getPrecioVenta());
+                pst.setInt(4, producto.getStock());
+                pst.setInt(5, producto.getCategoriaProducto().getIdCategoria());
+                pst.setInt(6, producto.getProveedorProducto().getIdProveedor());
+                pst.setInt(7, producto.getIdProducto());
 
                 int resultado = pst.executeUpdate();
                 if (resultado == 1) {
@@ -178,7 +195,20 @@ public class ProductoDAO implements DAO <Producto, Integer>, AdmConexion {
                 producto = new Producto();
                 producto.setIdProducto(rs.getInt("idProducto"));
                 producto.setNombre(rs.getString("nombre"));
-                producto.setCategoriaProducto(new Categoria(rs.getString("categoria")));
+
+                Categoria categoria = new Categoria();
+                categoria.setIdCategoria(rs.getInt("Categoria_idCategoria"));
+                categoria.setNombre(rs.getString("nombreCategoria"));
+                producto.setCategoriaProducto(categoria);
+
+                Proveedor proveedor = new Proveedor();
+                proveedor.setIdProveedor(rs.getInt("Proveedor_idProveedor"));
+                proveedor.setNombre(rs.getString("nombreProveedor"));
+                producto.setProveedorProducto(proveedor);
+
+                producto.setPrecioCompra(rs.getInt("precio_compra"));
+                producto.setPrecioVenta(rs.getInt("precio_venta"));
+                producto.setStock(rs.getInt("stock"));
                 producto.setPrecioCompra(rs.getInt("precio_compra"));
                 producto.setPrecioVenta(rs.getInt("precio_venta"));
                 producto.setStock(rs.getInt("stock"));

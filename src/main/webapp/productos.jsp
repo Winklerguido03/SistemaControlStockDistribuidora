@@ -39,12 +39,7 @@
         <li class="nav-item">
           <a class="nav-link" href="categorias.jsp">Categorias</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="ingresos.jsp">Ingresos</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="egresos.jsp">Egresos</a>
-        </li>
+
         <c:if test="${sessionScope.usuario != null}">
                 <a class="btnLogin" href="login.jsp">CERRAR SESION</a>
                 </c:if>
@@ -56,9 +51,150 @@
 </header>
 
     <main>
-          <c:if test="${sessionScope.usuario == null}">
-                <p>NO HAY DATOS,POR FAVOR INICIE SESIÓN</p>
-          </c:if>
+
+          <div class="container mt-4">
+
+              <div class="d-flex justify-content-between align-items-center mb-3">
+
+                  <h2>Productos</h2>
+
+                  <a href="ingresos.jsp"
+                     class="btn btn-success">
+
+                      <i class="bi bi-plus-circle"></i>
+                      Nuevo Ingreso
+
+                  </a>
+                  <a href="ProductoServlet?accion=nuevo"
+                                       class="btn btn-success">
+
+                                        <i class="bi bi-plus-circle"></i>
+                                        Nuevo Egreso
+
+                                    </a>
+
+              </div>
+
+              <table class="table table-striped table-hover table-bordered align-middle">
+
+                  <thead class="table-dark">
+
+                  <tr>
+
+                      <th>Nombre</th>
+                      <th>Categoría</th>
+                      <th>Proveedor</th>
+                      <th>Precio Compra</th>
+                      <th>Precio Venta</th>
+                      <th>Stock</th>
+
+                  </tr>
+
+                  </thead>
+
+                  <tbody>
+
+                  <c:forEach var="producto" items="${listaProductos}">
+
+                      <tr>
+
+                          <td>${producto.nombre}</td>
+
+                          <td>${producto.categoria.nombre}</td>
+
+                          <td>${producto.proveedor.nombre}</td>
+
+                          <td>
+
+                              <fmt:formatNumber
+                                      value="${producto.precioCompra}"
+                                      type="currency"/>
+
+                          </td>
+
+                          <td>
+
+                              <fmt:formatNumber
+                                      value="${producto.precioVenta}"
+                                      type="currency"/>
+
+                          </td>
+
+                           <td>
+
+                                                         <c:choose>
+
+                                                             <c:when test="${producto.stock == 0}">
+
+                                                                 <span class="badge bg-danger">
+                                                                     ${producto.stock}
+                                                                 </span>
+
+                                                             </c:when>
+
+                                                             <c:when test="${producto.stock <= producto.stockMinimo}">
+
+                                                                 <span class="badge bg-warning text-dark">
+                                                                     ${producto.stock}
+                                                                 </span>
+
+                                                             </c:when>
+
+                                                             <c:otherwise>
+
+                                                                 <span class="badge bg-success">
+                                                                     ${producto.stock}
+                                                                 </span>
+
+                                                             </c:otherwise>
+
+                                                         </c:choose>
+
+                                                     </td>
+
+                          <td>
+
+                              <a href="ProductoServlet?accion=editar&id=${producto.id}"
+                                 class="btn btn-warning btn-sm">
+
+                                  Editar
+
+                              </a>
+
+                              <a href="ProductoServlet?accion=eliminar&id=${producto.id}"
+                                 class="btn btn-danger btn-sm"
+                                 onclick="return confirm('¿Está seguro de eliminar este producto?')">
+
+                                  Eliminar
+
+                              </a>
+
+                          </td>
+
+                      </tr>
+
+                  </c:forEach>
+
+                  <c:if test="${empty productos}">
+
+                      <tr>
+
+                          <td colspan="8" class="text-center">
+
+                              No hay productos registrados.
+
+                          </td>
+
+                      </tr>
+
+                  </c:if>
+
+                  </tbody>
+
+              </table>
+
+          </div>
+
     </main>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>

@@ -59,7 +59,10 @@
 
     <div class="formulario">
         <h2>INGRESOS</h2>
-    <form action="seLogin" method="POST">
+    <form action="ProductoServlet" method="POST">
+
+    <input type="hidden" name="txtId" id="txtId" value="-1" />
+    <input type="hidden" name="operacion" id="operacion" value="nuevo" />
 
     <label for="txtNombreProducto">Nombre Producto</label>
     <br>

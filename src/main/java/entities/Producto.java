@@ -5,6 +5,7 @@ public class Producto {
     private int idProducto;
     private String nombre;
     private Categoria categoriaProducto;
+    private Proveedor proveedorProducto;
     private int precioCompra;
     private int precioVenta;
     private int stock;
@@ -40,6 +41,14 @@ public class Producto {
 
     public void setCategoriaProducto(Categoria categoria) {
         this.categoriaProducto = categoria;
+    }
+
+    public Proveedor getProveedorProducto() {
+        return proveedorProducto;
+    }
+
+    public void setProveedorProducto(Proveedor proveedorProducto) {
+        this.proveedorProducto = proveedorProducto;
     }
 
     public int getPrecioCompra() {
