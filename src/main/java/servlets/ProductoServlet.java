@@ -48,7 +48,7 @@ public class ProductoServlet extends HttpServlet {
         }
 
         // Para obtener productos
-        listaProductos = productoDAO.getAll();
+        listaProductos = productoDAO.getProductosConStock();
         request.setAttribute("listaProductos", listaProductos);
         request.getRequestDispatcher("productos.jsp").forward(request, response);
 

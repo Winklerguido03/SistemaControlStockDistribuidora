@@ -49,9 +49,93 @@
 
 </header>
     <main>
-          <c:if test="${sessionScope.usuario == null}">
-                <p>NO HAY DATOS,POR FAVOR INICIE SESIÓN</p>
-          </c:if>
+          <body class="bg-light">
+
+          <div class="container mt-5">
+
+              <h2 class="mb-4 text-center">Dashboard - Sistema de Gestión de Stock</h2>
+
+              <div class="row g-4">
+
+                  <div class="col-md-3">
+                      <div class="card text-center shadow">
+                          <div class="card-body">
+                              <h5 class="card-title">Productos</h5>
+                              <h2>${totalProductos}</h2>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-md-3">
+                      <div class="card text-center shadow">
+                          <div class="card-body">
+                              <h5 class="card-title">Categorías</h5>
+                              <h2>${totalCategorias}</h2>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-md-3">
+                      <div class="card text-center shadow">
+                          <div class="card-body">
+                              <h5 class="card-title">Proveedores</h5>
+                              <h2>${totalProveedores}</h2>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-md-3">
+                      <div class="card text-center shadow">
+                          <div class="card-body">
+                              <h5 class="card-title">Stock Total</h5>
+                              <h2>${stockTotal}</h2>
+                          </div>
+                      </div>
+                  </div>
+
+              </div>
+
+              <div class="row mt-4 g-4">
+
+                  <div class="col-md-4">
+                      <div class="card shadow">
+                          <div class="card-header">
+                              Productos sin stock
+                          </div>
+                          <div class="card-body">
+                              <h3>${productosSinStock}</h3>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-md-4">
+                      <div class="card shadow">
+                          <div class="card-header">
+                              Productos con stock
+                          </div>
+                          <div class="card-body">
+                              <h3>${productosConStock}</h3>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="col-md-4">
+                      <div class="card shadow">
+                          <div class="card-header">
+                              Producto con mayor stock
+                          </div>
+                          <div class="card-body">
+                              <strong>${productoMayorStock.nombre}</strong><br>
+                              Stock: ${productoMayorStock.stock}
+                          </div>
+                      </div>
+                  </div>
+
+              </div>
+
+          </div>
+
+          </body>
     </main>
 
 

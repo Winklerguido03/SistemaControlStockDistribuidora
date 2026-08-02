@@ -66,7 +66,7 @@
                                             Nuevo Ingreso
 
                                         </a>
-                                        <a href="ProductoServlet?accion=nuevo"
+                                        <a href="EgresoServlet"
                                                              class="btn btn-success">
 
                                                               <i class="bi bi-plus-circle"></i>

@@ -59,6 +59,15 @@
 
     <div class="formulario">
         <h2>EGRESOS</h2>
+
+        <% if(request.getAttribute("error") != null){ %>
+
+            <div class="alert alert-danger">
+                <%= request.getAttribute("error") %>
+            </div>
+
+        <% } %>
+
     <form action="EgresoServlet" method="POST">
 
         <label>Producto</label>
