@@ -17,7 +17,7 @@
       rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"/>
 
     <!-- CSS Personalizado -->
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/styleProductos.css" />
   </head>
 <body>
 <header>
@@ -31,13 +31,13 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="productos.jsp">Productos</a>
+          <a class="nav-link" href="ProductoServlet">Productos</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="proveedores.jsp">Proveedores</a>
+          <a class="nav-link" href="ProveedorServlet">Proveedores</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="categorias.jsp">Categorias</a>
+          <a class="nav-link" href="CategoriaServlet">Categorias</a>
         </li>
 
         <c:if test="${sessionScope.usuario != null}">
@@ -58,20 +58,23 @@
 
                   <h2>Productos</h2>
 
-                  <a href="ingresos.jsp"
-                     class="btn btn-success">
+                  <div class="botonesIngresoEgreso">
+                      <a href="IngresoServlet"
+                                           class="btn btn-success">
 
-                      <i class="bi bi-plus-circle"></i>
-                      Nuevo Ingreso
+                                            <i class="bi bi-plus-circle"></i>
+                                            Nuevo Ingreso
 
-                  </a>
-                  <a href="ProductoServlet?accion=nuevo"
-                                       class="btn btn-success">
+                                        </a>
+                                        <a href="ProductoServlet?accion=nuevo"
+                                                             class="btn btn-success">
 
-                                        <i class="bi bi-plus-circle"></i>
-                                        Nuevo Egreso
+                                                              <i class="bi bi-plus-circle"></i>
+                                                              Nuevo Egreso
 
-                                    </a>
+                                                          </a>
+                  </div>
+
 
               </div>
 
@@ -87,6 +90,7 @@
                       <th>Precio Compra</th>
                       <th>Precio Venta</th>
                       <th>Stock</th>
+                      <th>   </th>
 
                   </tr>
 
@@ -100,70 +104,27 @@
 
                           <td>${producto.nombre}</td>
 
-                          <td>${producto.categoria.nombre}</td>
+                          <td>${producto.categoriaProducto.nombre}</td>
 
-                          <td>${producto.proveedor.nombre}</td>
+                          <td>${producto.proveedorProducto.nombre}</td>
 
-                          <td>
+                          <td>${producto.precioCompra}</td>
 
-                              <fmt:formatNumber
-                                      value="${producto.precioCompra}"
-                                      type="currency"/>
+                          <td>${producto.precioVenta}</td>
 
-                          </td>
+                          <td>${producto.stock}</td>
 
                           <td>
 
-                              <fmt:formatNumber
-                                      value="${producto.precioVenta}"
-                                      type="currency"/>
-
-                          </td>
-
-                           <td>
-
-                                                         <c:choose>
-
-                                                             <c:when test="${producto.stock == 0}">
-
-                                                                 <span class="badge bg-danger">
-                                                                     ${producto.stock}
-                                                                 </span>
-
-                                                             </c:when>
-
-                                                             <c:when test="${producto.stock <= producto.stockMinimo}">
-
-                                                                 <span class="badge bg-warning text-dark">
-                                                                     ${producto.stock}
-                                                                 </span>
-
-                                                             </c:when>
-
-                                                             <c:otherwise>
-
-                                                                 <span class="badge bg-success">
-                                                                     ${producto.stock}
-                                                                 </span>
-
-                                                             </c:otherwise>
-
-                                                         </c:choose>
-
-                                                     </td>
-
-                          <td>
-
-                              <a href="ProductoServlet?accion=editar&id=${producto.id}"
+                              <a href="ProductoServlet?operacion=editar&id=${producto.idProducto}"
                                  class="btn btn-warning btn-sm">
 
                                   Editar
 
                               </a>
 
-                              <a href="ProductoServlet?accion=eliminar&id=${producto.id}"
-                                 class="btn btn-danger btn-sm"
-                                 onclick="return confirm('¿Está seguro de eliminar este producto?')">
+                              <a href="ProductoServlet?operacion=eliminar&id=${producto.idProducto}"
+                                 class="btn btn-danger btn-sm">
 
                                   Eliminar
 
@@ -175,7 +136,7 @@
 
                   </c:forEach>
 
-                  <c:if test="${empty productos}">
+                  <c:if test="${empty listaProductos}">
 
                       <tr>
 

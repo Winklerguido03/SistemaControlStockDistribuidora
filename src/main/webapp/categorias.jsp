@@ -31,13 +31,13 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="productos.jsp">Productos</a>
+          <a class="nav-link" href="ProductoServlet">Productos</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="proveedores.jsp">Proveedores</a>
+          <a class="nav-link" href="ProveedorServlet">Proveedores</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="categorias.jsp">Categorias</a>
+          <a class="nav-link" href="CategoriaServlet">Categorias</a>
         </li>
 
         <c:if test="${sessionScope.usuario != null}">

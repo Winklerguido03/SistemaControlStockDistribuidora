@@ -32,11 +32,6 @@ public class ProveedorServlet extends HttpServlet {
             return;
         }
 
-        // Para obtener categorias
-        listaProveedores = proveedorDAO.getAll();
-        request.setAttribute("listaProveedores", listaProveedores);
-        request.getRequestDispatcher("proveedores.jsp").forward(request, response);
-
         //Para eliminar una noticia
         String accion = request.getParameter("operacion");
 
@@ -49,6 +44,13 @@ public class ProveedorServlet extends HttpServlet {
                     return;
             }
         }
+
+        // Para obtener proveedores
+        listaProveedores = proveedorDAO.getAll();
+        request.setAttribute("listaProveedores", listaProveedores);
+        request.getRequestDispatcher("proveedores.jsp").forward(request, response);
+
+
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {

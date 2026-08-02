@@ -4,12 +4,14 @@ public class DetalleMovimiento {
 
     private int idDetalleMovimiento;
     private Producto producto;
+    private Movimiento movimiento;
     private int cantidad;
 
     public DetalleMovimiento(){}
 
-    public DetalleMovimiento(int idDetalleMovimiento,Producto producto,int cantidad){
+    public DetalleMovimiento(int idDetalleMovimiento,Producto producto,Movimiento movimiento,int cantidad){
         this.producto=producto;
+        this.movimiento=movimiento;
         this.cantidad=cantidad;
     }
 
@@ -27,6 +29,14 @@ public class DetalleMovimiento {
 
     public void setProducto(Producto producto) {
         this.producto = producto;
+    }
+
+    public Movimiento getMovimiento() {
+        return movimiento;
+    }
+
+    public void setMovimiento(Movimiento movimiento) {
+        this.movimiento = movimiento;
     }
 
     public int getCantidad() {

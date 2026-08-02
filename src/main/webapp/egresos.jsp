@@ -59,26 +59,30 @@
 
     <div class="formulario">
         <h2>EGRESOS</h2>
-    <form action="seLogin" method="POST">
+    <form action="EgresoServlet" method="POST">
 
-    <label for="txtNombreProducto">Nombre Producto</label>
-    <br>
-    <input type="text" name="txtNombreProducto" id="txtNombreProducto" placeholder="Nombre Producto" required />
-    <br>
-    <label for="txtPrecioCompra">Precio Compra</label>
-    <br>
-    <input type="text" name="txtPrecioCompra" id="txtPrecioCompra" placeholder="Precio Compra" required />
-    <br>
-    <label for="txtPrecioVenta">Precio Venta</label>
-    <br>
-    <input type="text" name="txtPrecioVenta" id="txtPrecioVenta" placeholder="Precio Venta" required />
-    <br>
-    <label for="txtCantidad">Cantidad</label>
-    <br>
-    <input type="text" name="txtCantidad" id="txtCantidad" placeholder="Cantidad" required />
+        <label>Producto</label>
+        <select name="cmbProducto" required>
+            <c:forEach var="producto" items="${listaProductos}">
+                <option value="${producto.idProducto}">
+                    ${producto.nombre}
+                </option>
+            </c:forEach>
+        </select>
 
-    <br>
-    <input class="btn" type="submit" value="Enviar" />
+        <br><br>
+
+        <label>Cantidad</label>
+        <input type="number" name="txtCantidad" min="1" required>
+
+        <br><br>
+
+        <label>Motivo</label>
+        <input type="text" name="txtMotivo">
+
+        <br><br>
+
+        <input type="submit" value="Registrar egreso">
 
     </form>
     </div>

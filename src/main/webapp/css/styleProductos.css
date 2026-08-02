@@ -1,22 +1,33 @@
 header nav{
-background-color:yellow; !important
+    background-color:yellow; !important
 }
 
 .btnLogin{
-text-decoration:none;
-padding:10px;
-border:1px solid orange;
-background-color:orange;
-color:black;
+    text-decoration:none;
+    padding:10px;
+    border:1px solid orange;
+    background-color:orange;
+    color:black;
 }
 
 main{
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     background-color: #f0f2f5;
     min-height: 88vh;
+}
+
+main div div a{
+    background-color:orange !important;
+    border:1px solid orange !important;
+}
+
+.botonesIngresoEgreso{
+    justify-content:flex-end;
+}
+
+tbody tr td{
+    background-color:#d6d6d6 !important;
 }
 
 .btnAgregar{

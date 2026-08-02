@@ -31,13 +31,13 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="productos.jsp">Productos</a>
+          <a class="nav-link" href="ProductoServlet">Productos</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="proveedores.jsp">Proveedores</a>
+          <a class="nav-link" href="ProveedorServlet">Proveedores</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="categorias.jsp">Categorias</a>
+          <a class="nav-link" href="CategoriaServlet">Categorias</a>
         </li>
 
         <c:if test="${sessionScope.usuario != null}">
@@ -54,19 +54,19 @@
 
               <div class="d-flex justify-content-between align-items-center border rounded p-2 mb-2">
 
-                  <a href="ProveedorServlet?operacion=listarPorCategoria&id=${categoria.idCategoria}"
+                  <a href="ProveedorServlet?operacion=listarPorProveedor&id=${proveedor.idProveedor}"
                      class="text-decoration-none fw-bold">
                       ${proveedor.nombre}
                   </a>
 
                   <div>
 
-                      <a href="ProveedorServlet?operacion=editar&id=${categoria.idCategoria}"
+                      <a href="ProveedorServlet?operacion=editar&id=${proveedor.idProveedor}"
                          class="btn btn-warning btn-sm">
                           <i class="bi bi-pencil"></i>
                       </a>
 
-                      <a href="ProveedorServlet?operacion=eliminar&id=${categoria.idCategoria}"
+                      <a href="ProveedorServlet?operacion=eliminar&id=${proveedor.idProveedor}"
                          class="btn btn-danger btn-sm">
                           <i class="bi bi-trash"></i>
                       </a>
@@ -76,8 +76,10 @@
               </div>
 
           </c:forEach>
+
+          <a class="btnAgregar" href="agregarProveedor.jsp">+</a>
 </main>
-<a class="btnAgregar" href="agregarProveedor.jsp">+</a>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
 </html>

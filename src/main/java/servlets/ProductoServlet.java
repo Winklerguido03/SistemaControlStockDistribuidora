@@ -3,6 +3,7 @@ package servlets;
 import dao.ProductoDAO;
 import entities.Categoria;
 import entities.Producto;
+import entities.Proveedor;
 import entities.Usuario;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -30,16 +31,35 @@ public class ProductoServlet extends HttpServlet {
             return;
         }
 
+        String operacion = request.getParameter("operacion");
+
+        if (operacion != null) {
+
+            switch (operacion) {
+
+                case "eliminar":
+
+                    int id = Integer.parseInt(request.getParameter("id"));
+                    productoDAO.delete(id);
+
+                    response.sendRedirect("ProductoServlet");
+                    return;
+            }
+        }
+
         // Para obtener productos
         listaProductos = productoDAO.getAll();
         request.setAttribute("listaProductos", listaProductos);
         request.getRequestDispatcher("productos.jsp").forward(request, response);
+
+
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String accion = request.getParameter("operacion");
 
         switch (accion) {
+
             case "nuevo":
 
                 Usuario user = (Usuario) request.getSession().getAttribute("usuario");
@@ -49,23 +69,41 @@ public class ProductoServlet extends HttpServlet {
                     return;
                 }
 
-                String nombreProducto = request.getParameter("txtNombreProducto");
-                String precioCompra = request.getParameter("txtPrecioCompra");
-                String precioVenta = request.getParameter("txtPrecioVenta");
-                String cantidad = request.getParameter("txtCantidad");
+                // Leer datos del formulario
+                String nombre = request.getParameter("txtNombreProducto");
+                int precioCompra = Integer.parseInt(request.getParameter("txtPrecioCompra"));
+                int precioVenta = Integer.parseInt(request.getParameter("txtPrecioVenta"));
+                int stock = Integer.parseInt(request.getParameter("txtCantidad"));
 
+                // Leer los IDs de los select
+                int idCategoria = Integer.parseInt(request.getParameter("cmbCategoria"));
+                int idProveedor = Integer.parseInt(request.getParameter("cmbProveedor"));
 
+                // Crear categoría
+                Categoria categoria = new Categoria();
+                categoria.setIdCategoria(idCategoria);
+
+                // Crear proveedor
+                Proveedor proveedor = new Proveedor();
+                proveedor.setIdProveedor(idProveedor);
+
+                // Crear producto
                 Producto producto = new Producto();
-                producto.setNombre(nombreProducto);
-                producto.setPrecioCompra(Integer.parseInt(precioCompra));
-                producto.setPrecioVenta(Integer.parseInt(precioVenta));
-                producto.setStock(Integer.parseInt(cantidad));
+                producto.setNombre(nombre);
+                producto.setPrecioCompra(precioCompra);
+                producto.setPrecioVenta(precioVenta);
+                producto.setStock(stock);
 
-                ProductoDAO dao = new ProductoDAO();
-                dao.insert(producto);
+                // Asignar categoría y proveedor
+                producto.setCategoriaProducto(categoria);
+                producto.setProveedorProducto(proveedor);
 
-                response.sendRedirect("index.jsp");
+                // Guardar
+                productoDAO.insert(producto);
+
+                response.sendRedirect("ProductoServlet");
                 break;
+
         }
     }
 

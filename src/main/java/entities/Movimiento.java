@@ -9,6 +9,7 @@ public class Movimiento {
     private int idMovimiento;
     private Date Fecha;
     private TipoMovimiento Tipo;
+    private Usuario usuario;
 
     public Movimiento (){}
 
@@ -39,5 +40,13 @@ public class Movimiento {
 
     public void setTipo(TipoMovimiento tipo) {
         Tipo = tipo;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }

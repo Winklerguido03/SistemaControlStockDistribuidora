@@ -32,11 +32,6 @@ public class CategoriaServlet extends HttpServlet {
             return;
         }
 
-        // Para obtener categorias
-        listaCategorias = categoriaDAO.getAll();
-        request.setAttribute("listaCategorias", listaCategorias);
-        request.getRequestDispatcher("categorias.jsp").forward(request, response);
-
         //Para eliminar una noticia
         String accion = request.getParameter("operacion");
 
@@ -45,10 +40,17 @@ public class CategoriaServlet extends HttpServlet {
                 case "eliminar":
                     int id = Integer.parseInt(request.getParameter("id"));
                     categoriaDAO.delete(id);
-                    response.sendRedirect("CategoriaServlet");
+                    response.sendRedirect("categorias.jsp");
                     return;
             }
         }
+
+        // Para obtener categorias
+        listaCategorias = categoriaDAO.getAll();
+        request.setAttribute("listaCategorias", listaCategorias);
+        request.getRequestDispatcher("categorias.jsp").forward(request, response);
+
+
 
     }
 

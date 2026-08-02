@@ -2,89 +2,131 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page isELIgnored="false" %>
 
-<html>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>DISTRIBUIDORA</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevo Ingreso</title>
 
-    <!-- Bootstrap 5 -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
-    <link
-      rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"/>
-
-    <!-- CSS Personalizado -->
-    <link rel="stylesheet" href="css/styleLogin.css" />
-  </head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styleLogin.css">
+</head>
 <body>
+
 <header>
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="index.jsp">DISTRIBUIDORA</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="productos.jsp">Productos</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="proveedores.jsp">Proveedores</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="categorias.jsp">Categorias</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="ingresos.jsp">Ingresos</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="egresos.jsp">Egresos</a>
-        </li>
-        <c:if test="${sessionScope.usuario != null}">
-                <a class="btnLogin" href="login.jsp">CERRAR SESION</a>
-                </c:if>
-      </ul>
+    <div class="container-fluid">
+
+        <a class="navbar-brand" href="index.jsp">DISTRIBUIDORA</a>
+
+        <div class="collapse navbar-collapse">
+
+            <ul class="navbar-nav">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="ProductoServlet">Productos</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="ProveedorServlet">Proveedores</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="CategoriaServlet">Categorías</a>
+                </li>
+
+            </ul>
+
+        </div>
+
     </div>
-  </div>
 </nav>
 
 </header>
 
 <main>
 
-    <div class="formulario">
-        <h2>INGRESOS</h2>
-    <form action="ProductoServlet" method="POST">
+<div class="formulario">
 
-    <input type="hidden" name="txtId" id="txtId" value="-1" />
-    <input type="hidden" name="operacion" id="operacion" value="nuevo" />
+    <h2>Registrar Ingreso</h2>
 
-    <label for="txtNombreProducto">Nombre Producto</label>
-    <br>
-    <input type="text" name="txtNombreProducto" id="txtNombreProducto" placeholder="Nombre Producto" required />
-    <br>
-    <label for="txtPrecioCompra">Precio Compra</label>
-    <br>
-    <input type="text" name="txtPrecioCompra" id="txtPrecioCompra" placeholder="Precio Compra" required />
-    <br>
-    <label for="txtPrecioVenta">Precio Venta</label>
-    <br>
-    <input type="text" name="txtPrecioVenta" id="txtPrecioVenta" placeholder="Precio Venta" required />
-    <br>
-    <label for="txtCantidad">Cantidad</label>
-    <br>
-    <input type="text" name="txtCantidad" id="txtCantidad" placeholder="Cantidad" required />
+    <form action="IngresoServlet" method="post">
 
-    <br>
-    <input class="btn" type="submit" value="Enviar" />
+        <input type="hidden" name="operacion" value="nuevo">
+
+        <label>Nombre del Producto</label><br>
+        <input type="text"
+               name="txtNombreProducto"
+               placeholder="Nombre del producto"
+               required>
+
+        <br><br>
+
+        <label>Categoría</label><br>
+
+        <select name="cmbCategoria" required>
+
+            <option value="">Seleccione una categoría</option>
+
+            <c:forEach var="categoria" items="${listaCategorias}">
+                <option value="${categoria.idCategoria}">
+                    ${categoria.nombre}
+                </option>
+            </c:forEach>
+
+        </select>
+
+        <br><br>
+
+        <label>Proveedor</label><br>
+
+        <select name="cmbProveedor" required>
+
+            <option value="">Seleccione un proveedor</option>
+
+            <c:forEach var="proveedor" items="${listaProveedores}">
+                <option value="${proveedor.idProveedor}">
+                    ${proveedor.nombre}
+                </option>
+            </c:forEach>
+
+        </select>
+
+        <br><br>
+
+        <label>Precio de Compra</label><br>
+        <input type="number"
+               name="txtPrecioCompra"
+               min="0"
+               required>
+
+        <br><br>
+
+        <label>Precio de Venta</label><br>
+        <input type="number"
+               name="txtPrecioVenta"
+               min="0"
+               required>
+
+        <br><br>
+
+        <label>Cantidad</label><br>
+        <input type="number"
+               name="txtCantidad"
+               min="1"
+               required>
+
+        <br><br>
+
+        <input class="btn btn-success"
+               type="submit"
+               value="Registrar Ingreso">
 
     </form>
-    </div>
+
+</div>
 
 </main>
 

@@ -41,6 +41,9 @@ public class ProductoDAO implements DAO <Producto, Integer>, AdmConexion {
                     "INNER JOIN proveedor pr ON p.Proveedor_idProveedor = pr.idProveedor " +
                     "WHERE p.idProducto = ?";
 
+    private static final String SQL_GETBYNOMBRE =
+            "SELECT * FROM producto WHERE nombre = ?";
+
     @Override
     public List<Producto> getAll() {
         PreparedStatement pst = null;
@@ -59,6 +62,7 @@ public class ProductoDAO implements DAO <Producto, Integer>, AdmConexion {
                 producto.setNombre(rs.getString("nombre"));
                 producto.setPrecioCompra(rs.getInt("precio_compra"));
                 producto.setPrecioVenta(rs.getInt("precio_venta"));
+                producto.setStock(rs.getInt("stock"));
                 Categoria categoria = new Categoria();
                 categoria.setIdCategoria(rs.getInt("Categoria_idCategoria"));
                 categoria.setNombre(rs.getString("nombreCategoria"));
@@ -248,5 +252,50 @@ public class ProductoDAO implements DAO <Producto, Integer>, AdmConexion {
             throw new RuntimeException(e);
         }
         return existe;
+    }
+
+    public Producto getByNombre(String nombre) {
+
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        Producto producto = null;
+
+        try {
+
+            conn = obtenerConexion();
+
+            pst = conn.prepareStatement(SQL_GETBYNOMBRE);
+            pst.setString(1, nombre);
+
+            rs = pst.executeQuery();
+
+            if (rs.next()) {
+
+                producto = new Producto();
+
+                producto.setIdProducto(rs.getInt("idProducto"));
+                producto.setNombre(rs.getString("nombre"));
+                producto.setPrecioCompra(rs.getInt("precio_compra"));
+                producto.setPrecioVenta(rs.getInt("precio_venta"));
+                producto.setStock(rs.getInt("stock"));
+
+                Categoria categoria = new Categoria();
+                categoria.setIdCategoria(rs.getInt("Categoria_idCategoria"));
+                producto.setCategoriaProducto(categoria);
+
+                Proveedor proveedor = new Proveedor();
+                proveedor.setIdProveedor(rs.getInt("Proveedor_idProveedor"));
+                producto.setProveedorProducto(proveedor);
+            }
+
+            rs.close();
+            pst.close();
+            conn.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return producto;
     }
 }
