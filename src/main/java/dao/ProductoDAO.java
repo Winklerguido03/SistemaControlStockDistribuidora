@@ -72,12 +72,12 @@ public class ProductoDAO implements DAO <Producto, Integer>, AdmConexion {
                 producto.setStock(rs.getInt("stock"));
                 Categoria categoria = new Categoria();
                 categoria.setIdCategoria(rs.getInt("Categoria_idCategoria"));
-                categoria.setNombre(rs.getString("nombreCategoria"));
+                categoria.setNombre(rs.getString("nombre"));
                 producto.setCategoriaProducto(categoria);
 
                 Proveedor proveedor = new Proveedor();
                 proveedor.setIdProveedor(rs.getInt("Proveedor_idProveedor"));
-                proveedor.setNombre(rs.getString("nombreProveedor"));
+                proveedor.setNombre(rs.getString("nombre"));
                 producto.setProveedorProducto(proveedor);
                 listaProductos.add(producto);
             }
@@ -288,12 +288,12 @@ public class ProductoDAO implements DAO <Producto, Integer>, AdmConexion {
 
                 Categoria categoria = new Categoria();
                 categoria.setIdCategoria(rs.getInt("Categoria_idCategoria"));
-                categoria.setNombre(rs.getString("nombreCategoria"));
+                categoria.setNombre(rs.getString("nombre"));
                 producto.setCategoriaProducto(categoria);
 
                 Proveedor proveedor = new Proveedor();
                 proveedor.setIdProveedor(rs.getInt("Proveedor_idProveedor"));
-                proveedor.setNombre(rs.getString("nombreProveedor"));
+                proveedor.setNombre(rs.getString("nombre"));
                 producto.setProveedorProducto(proveedor);
             }
 

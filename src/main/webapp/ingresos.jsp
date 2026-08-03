@@ -19,7 +19,7 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
 
-        <a class="navbar-brand" href="index.jsp">DISTRIBUIDORA</a>
+        <a class="navbar-brand" href="DashboardServlet">DISTRIBUIDORA</a>
 
         <div class="collapse navbar-collapse">
 

@@ -114,7 +114,7 @@ public class SesionServlet extends HttpServlet {
         sesionesActivas.put(username, sesion);
 
         // No es necesario mandar el mensaje de éxito a "inicio" a menos que lo leas allá
-        return "index.jsp";
+        return "DashboardServlet";
     }
 
 }
