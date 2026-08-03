@@ -4,6 +4,7 @@ import dao.CategoriaDAO;
 import dao.ProductoDAO;
 import entities.Categoria;
 import entities.Producto;
+import entities.Proveedor;
 import entities.Usuario;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -42,6 +43,19 @@ public class CategoriaServlet extends HttpServlet {
                     categoriaDAO.delete(id);
                     response.sendRedirect("categorias.jsp");
                     return;
+
+                case "editar":
+
+                    int idEditar = Integer.parseInt(request.getParameter("id"));
+
+                    Categoria categoria = categoriaDAO.getById(idEditar);
+
+                    request.setAttribute("categoria", categoria);
+
+                    request.getRequestDispatcher("editarCategoria.jsp")
+                            .forward(request, response);
+
+                    return;
             }
         }
 
@@ -73,11 +87,28 @@ public class CategoriaServlet extends HttpServlet {
                 Categoria categoria = new Categoria();
                 categoria.setNombre(nombreCategoria);
 
-                CategoriaDAO categoriaDAO = new CategoriaDAO();
+                categoriaDAO = new CategoriaDAO();
                 categoriaDAO.insert(categoria);
 
                 response.sendRedirect("CategoriaServlet");
                 break;
+
+            case "actualizar":
+
+                int idCategoria = Integer.parseInt(request.getParameter("txtId"));
+
+                nombreCategoria = request.getParameter("txtNombreCategoria");
+
+                categoria = new Categoria();
+
+                categoria.setIdCategoria(idCategoria);
+                categoria.setNombre(nombreCategoria);
+
+                categoriaDAO.update(categoria);
+
+                response.sendRedirect("CategoriaServlet");
+
+                return;
         }
     }
 }

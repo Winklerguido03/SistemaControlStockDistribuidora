@@ -1,6 +1,7 @@
 package servlets;
 
 import dao.CategoriaDAO;
+import dao.ProductoDAO;
 import dao.ProveedorDAO;
 import entities.Categoria;
 import entities.Proveedor;
@@ -19,6 +20,7 @@ import java.util.List;
 public class ProveedorServlet extends HttpServlet {
 
     ProveedorDAO proveedorDAO = new ProveedorDAO();
+    ProductoDAO productoDAO = new ProductoDAO();
     List<Proveedor> listaProveedores;
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -41,6 +43,19 @@ public class ProveedorServlet extends HttpServlet {
                     int id = Integer.parseInt(request.getParameter("id"));
                     proveedorDAO.delete(id);
                     response.sendRedirect("ProveedorServlet");
+                    return;
+
+                case "editar":
+
+                    int idEditar = Integer.parseInt(request.getParameter("id"));
+
+                    Proveedor proveedor = proveedorDAO.getById(idEditar);
+
+                    request.setAttribute("proveedor", proveedor);
+
+                    request.getRequestDispatcher("editarProveedor.jsp")
+                            .forward(request, response);
+
                     return;
             }
         }
@@ -82,6 +97,29 @@ public class ProveedorServlet extends HttpServlet {
 
                 response.sendRedirect("ProveedorServlet");
                 break;
+
+            case "actualizar":
+
+                int idProveedor = Integer.parseInt(request.getParameter("txtId"));
+
+                nombreProveedor = request.getParameter("txtNombreProveedor");
+                telefono = request.getParameter("txtTelefono");
+                email = request.getParameter("txtEmail");
+                direccion = request.getParameter("txtDireccion");
+
+                proveedor = new Proveedor();
+
+                proveedor.setIdProveedor(idProveedor);
+                proveedor.setNombre(nombreProveedor);
+                proveedor.setTelefono(telefono);
+                proveedor.setEmail(email);
+                proveedor.setDireccion(direccion);
+
+                proveedorDAO.update(proveedor);
+
+                response.sendRedirect("ProveedorServlet");
+
+                return;
         }
     }
 }
