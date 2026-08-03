@@ -54,7 +54,7 @@
 
               <div class="d-flex justify-content-between align-items-center border rounded p-2 mb-2">
 
-                  <a href="ProveedorServlet?operacion=listarPorProveedor&id=${proveedor.idProveedor}"
+                  <a href="ProductosProveedorServlet?idProveedor=${proveedor.idProveedor}"
                      class="text-decoration-none fw-bold">
                       ${proveedor.nombre}
                   </a>

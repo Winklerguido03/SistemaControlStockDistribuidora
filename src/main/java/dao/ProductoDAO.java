@@ -51,6 +51,13 @@ public class ProductoDAO implements DAO <Producto, Integer>, AdmConexion {
             "INNER JOIN proveedor pr ON p.Proveedor_idProveedor = pr.idProveedor " +
             "WHERE stock > 0 ORDER BY p.idProducto";
 
+    private static final String SQL_GETPRODUCTOSPORPROVEEDOR =
+            "SELECT p.*, c.nombre AS nombreCategoria, pr.nombre AS nombreProveedor " +
+            "FROM producto p " +
+            "INNER JOIN categoria c ON p.Categoria_idCategoria = c.idCategoria " +
+            "INNER JOIN proveedor pr ON p.Proveedor_idProveedor = pr.idProveedor " +
+            "WHERE p.Proveedor_idProveedor = ?";
+
     @Override
     public List<Producto> getAll() {
         PreparedStatement pst = null;
@@ -346,6 +353,53 @@ public class ProductoDAO implements DAO <Producto, Integer>, AdmConexion {
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+
+
+        return lista;
+    }
+
+    public List<Producto> getProductosPorProveedor(int idProveedor){
+
+        List<Producto> lista = new ArrayList<>();
+
+        try(Connection conn = obtenerConexion();
+            PreparedStatement ps = conn.prepareStatement(SQL_GETPRODUCTOSPORPROVEEDOR)) {
+
+
+            ps.setInt(1,idProveedor);
+
+            ResultSet rs = ps.executeQuery();
+
+
+            while(rs.next()){
+
+                Producto producto = new Producto();
+
+                producto.setIdProducto(rs.getInt("idProducto"));
+                producto.setNombre(rs.getString("nombre"));
+                producto.setPrecioCompra(rs.getInt("precio_compra"));
+                producto.setPrecioVenta(rs.getInt("precio_venta"));
+                producto.setStock(rs.getInt("stock"));
+
+                // Categoría y proveedor
+                Categoria categoria = new Categoria();
+                categoria.setIdCategoria(rs.getInt("Categoria_idCategoria"));
+                categoria.setNombre(rs.getString("nombreCategoria"));
+                producto.setCategoriaProducto(categoria);
+
+                Proveedor proveedor = new Proveedor();
+                proveedor.setIdProveedor(rs.getInt("Proveedor_idProveedor"));
+                proveedor.setNombre(rs.getString("nombreProveedor"));
+                producto.setProveedorProducto(proveedor);
+
+
+                lista.add(producto);
+            }
+
+
+        } catch(Exception e){
+            throw new RuntimeException(e);
         }
 
 

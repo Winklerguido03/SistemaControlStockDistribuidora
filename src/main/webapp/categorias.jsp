@@ -55,7 +55,7 @@
 
               <div class="d-flex justify-content-between align-items-center border rounded p-2 mb-2">
 
-                  <a href="ProductoServlet?operacion=listarPorCategoria&id=${categoria.idCategoria}"
+                  <a href="ProductoCategoriaServlet?idCategoria=${categoria.idCategoria}"
                      class="text-decoration-none fw-bold">
                       ${categoria.nombre}
                   </a>
