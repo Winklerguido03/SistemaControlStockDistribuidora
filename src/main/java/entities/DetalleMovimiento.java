@@ -10,6 +10,7 @@ public class DetalleMovimiento {
     public DetalleMovimiento(){}
 
     public DetalleMovimiento(int idDetalleMovimiento,Producto producto,Movimiento movimiento,int cantidad){
+        this.idDetalleMovimiento=idDetalleMovimiento;
         this.producto=producto;
         this.movimiento=movimiento;
         this.cantidad=cantidad;
