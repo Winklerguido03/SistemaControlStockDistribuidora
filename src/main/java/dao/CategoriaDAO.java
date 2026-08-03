@@ -162,7 +162,7 @@ public class CategoriaDAO implements DAO<Categoria, Integer>, AdmConexion {
 
             if (rs.next()) {
                 categoria = new Categoria();
-                categoria.setIdCategoria(rs.getInt("idProducto"));
+                categoria.setIdCategoria(rs.getInt("idCategoria"));
                 categoria.setNombre(rs.getString("nombre"));
             }
 
