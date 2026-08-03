@@ -1,6 +1,8 @@
 package servlets;
 
+import dao.CategoriaDAO;
 import dao.ProductoDAO;
+import dao.ProveedorDAO;
 import entities.Categoria;
 import entities.Producto;
 import entities.Proveedor;
@@ -43,6 +45,28 @@ public class ProductoServlet extends HttpServlet {
                     productoDAO.delete(id);
 
                     response.sendRedirect("ProductoServlet");
+                    return;
+
+                case "editar":
+
+                    int idEditar = Integer.parseInt(request.getParameter("id"));
+
+                    Producto producto = productoDAO.getById(idEditar);
+
+                    CategoriaDAO categoriaDAO = new CategoriaDAO();
+                    ProveedorDAO proveedorDAO = new ProveedorDAO();
+
+
+                    request.setAttribute("producto", producto);
+
+                    request.setAttribute("listaCategorias", categoriaDAO.getAll());
+
+                    request.setAttribute("listaProveedores", proveedorDAO.getAll());
+
+
+                    request.getRequestDispatcher("editarProducto.jsp")
+                            .forward(request, response);
+
                     return;
             }
         }
@@ -104,6 +128,72 @@ public class ProductoServlet extends HttpServlet {
                 response.sendRedirect("ProductoServlet");
                 break;
 
+            case "actualizar":
+
+                int idProducto = Integer.parseInt(
+                        request.getParameter("idProducto")
+                );
+
+
+                 nombre = request.getParameter("txtNombreProducto");
+
+
+                 precioCompra = Integer.parseInt(
+                        request.getParameter("txtPrecioCompra")
+                );
+
+
+                 precioVenta = Integer.parseInt(
+                        request.getParameter("txtPrecioVenta")
+                );
+
+
+                 stock = Integer.parseInt(
+                        request.getParameter("txtCantidad")
+                );
+
+
+                 idCategoria = Integer.parseInt(
+                        request.getParameter("cmbCategoria")
+                );
+
+
+                 idProveedor = Integer.parseInt(
+                        request.getParameter("cmbProveedor")
+                );
+
+
+                 categoria = new Categoria();
+                categoria.setIdCategoria(idCategoria);
+
+
+
+                proveedor = new Proveedor();
+                proveedor.setIdProveedor(idProveedor);
+
+
+
+                producto = new Producto();
+
+                producto.setIdProducto(idProducto);
+
+                producto.setNombre(nombre);
+
+                producto.setPrecioCompra(precioCompra);
+
+                producto.setPrecioVenta(precioVenta);
+
+                producto.setStock(stock);
+
+                producto.setCategoriaProducto(categoria);
+
+                producto.setProveedorProducto(proveedor);
+
+                productoDAO.update(producto);
+
+                response.sendRedirect("ProductoServlet");
+
+                break;
         }
     }
 
