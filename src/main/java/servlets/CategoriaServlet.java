@@ -25,7 +25,7 @@ public class CategoriaServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
 
-        // Para obtener sesion de admin
+        // Para obtener sesion de usuario
         Usuario user = (Usuario) session.getAttribute("usuario");
 
         if (user == null) {
@@ -41,7 +41,7 @@ public class CategoriaServlet extends HttpServlet {
                 case "eliminar":
                     int id = Integer.parseInt(request.getParameter("id"));
                     categoriaDAO.delete(id);
-                    response.sendRedirect("categorias.jsp");
+                    response.sendRedirect("CategoriaServlet");
                     return;
 
                 case "editar":

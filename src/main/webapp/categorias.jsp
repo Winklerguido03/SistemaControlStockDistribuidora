@@ -31,19 +31,22 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="ProductoServlet">Productos</a>
+          <a class="nav-link" href="ProductoServlet">PRODUCTOS</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="ProveedorServlet">Proveedores</a>
+          <a class="nav-link" href="ProveedorServlet">PROVEEDORES</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="CategoriaServlet">Categorias</a>
+          <a class="nav-link" href="CategoriaServlet">CATEGORIAS</a>
         </li>
-
-        <c:if test="${sessionScope.usuario != null}">
-                <a class="btnLogin" href="login.jsp">CERRAR SESION</a>
-                </c:if>
       </ul>
+      <c:if test="${sessionScope.usuario != null}">
+                               <div class="ms-lg-auto mt-3 mt-lg-0">
+                                           <a class="btnLogin" href="login.jsp">
+                                               CERRAR SESION
+                                           </a>
+                                       </div>
+                </c:if>
     </div>
   </div>
 </nav>
@@ -51,32 +54,69 @@
 </header>
     <main>
 
-          <c:forEach var="categoria" items="${listaCategorias}">
+    <div class="table-responsive">
+                  <table class="table table-striped table-hover table-bordered align-middle">
 
-              <div class="d-flex justify-content-between align-items-center border rounded p-2 mb-2">
+                      <thead class="table-dark">
 
-                  <a href="ProductosCategoriaServlet?idCategoria=${categoria.idCategoria}"
-                     class="text-decoration-none fw-bold">
-                      ${categoria.nombre}
-                  </a>
+                      <tr>
 
-                  <div>
+                          <th>Nombre</th>
+                          <th>   </th>
 
-                      <a href="CategoriaServlet?operacion=editar&id=${categoria.idCategoria}"
-                         class="btn btn-warning btn-sm">
-                          <i class="bi bi-pencil"></i>
-                      </a>
+                      </tr>
 
-                      <a href="CategoriaServlet?operacion=eliminar&id=${categoria.idCategoria}"
-                         class="btn btn-danger btn-sm">
-                          <i class="bi bi-trash"></i>
-                      </a>
+                      </thead>
 
+                      <tbody>
+
+                      <c:forEach var="categoria" items="${listaCategorias}">
+
+                          <tr>
+
+                              <td><a href="ProductosCategoriaServlet?idCategoria=${categoria.idCategoria}"
+                                                       class="text-decoration-none fw-bold">
+                                                        ${categoria.nombre}
+                                                    </a></td>
+
+                              <td>
+
+                                  <a href="CategoriaServlet?operacion=editar&id=${categoria.idCategoria}"
+                                     class="btn btn-warning btn-sm">
+
+                                      Editar
+
+                                  </a>
+
+                                  <a href="CategoriaServlet?operacion=eliminar&id=${categoria.idCategoria}"
+                                                           class="btn btn-danger btn-sm">
+                                                            Eliminar
+                                                        </a>
+
+                              </td>
+
+                          </tr>
+
+                      </c:forEach>
+
+                      <c:if test="${empty listaCategorias}">
+
+                          <tr>
+
+                              <td colspan="8" class="text-center">
+
+                                  No hay categorias registradas.
+
+                              </td>
+
+                          </tr>
+
+                      </c:if>
+
+                      </tbody>
+
+                  </table>
                   </div>
-
-              </div>
-
-          </c:forEach>
 
           <a class="btnAgregar" href="agregarCategoria.jsp">+</a>
     </main>

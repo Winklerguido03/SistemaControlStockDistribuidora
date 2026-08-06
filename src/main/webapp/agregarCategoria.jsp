@@ -30,6 +30,15 @@
 
 <main>
 
+<div class="d-flex mb-3">
+
+    <a href="CategoriaServlet" class="btn btn-secondary ms-auto">
+        <i class="bi bi-arrow-left"></i>
+        Volver
+    </a>
+
+</div>
+
     <div class="formulario">
         <h2>AGREGAR CATEGORIA</h2>
     <form action="CategoriaServlet" method="POST">
@@ -47,7 +56,6 @@
 
     </form>
     </div>
-
 </main>
 
 </body>

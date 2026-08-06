@@ -10,7 +10,7 @@
     <title>Nuevo Ingreso</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/styleLogin.css">
+    <link rel="stylesheet" href="css/styleIngresosEgresos.css">
 </head>
 <body>
 
@@ -26,18 +26,26 @@
             <ul class="navbar-nav">
 
                 <li class="nav-item">
-                    <a class="nav-link" href="ProductoServlet">Productos</a>
+                    <a class="nav-link" href="ProductoServlet">PRODUCTOS</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="ProveedorServlet">Proveedores</a>
+                    <a class="nav-link" href="ProveedorServlet">PROVEEDORES</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="CategoriaServlet">Categorías</a>
+                    <a class="nav-link" href="CategoriaServlet">CATEGORIAS</a>
                 </li>
 
             </ul>
+
+            <c:if test="${sessionScope.usuario != null}">
+                                     <div class="ms-lg-auto mt-3 mt-lg-0">
+                                                 <a class="btnLogin" href="login.jsp">
+                                                     CERRAR SESION
+                                                 </a>
+                                             </div>
+                      </c:if>
 
         </div>
 
@@ -47,6 +55,15 @@
 </header>
 
 <main>
+
+<div class="d-flex mb-3">
+
+    <a href="ProductoServlet" class="btn btn-secondary ms-auto">
+        <i class="bi bi-arrow-left"></i>
+        Volver
+    </a>
+
+</div>
 
 <div class="formulario">
 

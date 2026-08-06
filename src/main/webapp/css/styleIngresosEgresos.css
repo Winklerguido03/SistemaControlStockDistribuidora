@@ -1,4 +1,4 @@
-/*LOGIN*/
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
 
 .navbar{
     background-color:#f2c94c !important;
@@ -8,11 +8,11 @@
     color:black;
 }
 
-.nav-link{
+.nav-item{
    font-family:'Oswald',sans-serif;
 }
 
-.nav-link:hover{
+.nav-item:hover{
    background-color:#f0f2f5;
 }
 
@@ -86,12 +86,4 @@ input{
     background-color: white;
     border:1px solid orange;
     color: orange;
-}
-
-.btnLogin{
-    text-decoration:none;
-    padding:10px;
-    border:1px solid orange;
-    background-color:orange;
-    color:black;
 }

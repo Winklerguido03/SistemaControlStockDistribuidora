@@ -30,20 +30,27 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
+      <div class="nav1">
+      </div>
         <li class="nav-item">
-          <a class="nav-link" href="ProductoServlet">Productos</a>
+          <a class="nav-link" href="ProductoServlet">PRODUCTOS</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="ProveedorServlet">Proveedores</a>
+          <a class="nav-link" href="ProveedorServlet">PROVEEDORES</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="CategoriaServlet">Categorias</a>
+          <a class="nav-link" href="CategoriaServlet">CATEGORIAS</a>
         </li>
-        <c:if test="${sessionScope.usuario != null}">
-        <a class="btnLogin" href="login.jsp">CERRAR SESION</a>
-        </c:if>
       </ul>
+      <c:if test="${sessionScope.usuario != null}">
+                         <div class="ms-lg-auto mt-3 mt-lg-0">
+                                     <a class="btnLogin" href="login.jsp">
+                                         CERRAR SESION
+                                     </a>
+                                 </div>
+          </c:if>
     </div>
+
   </div>
 </nav>
 

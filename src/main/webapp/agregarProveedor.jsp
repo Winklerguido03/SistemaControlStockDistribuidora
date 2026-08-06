@@ -30,6 +30,15 @@
 
 <main>
 
+<div class="d-flex mb-3">
+
+    <a href="ProveedorServlet" class="btn btn-secondary ms-auto">
+        <i class="bi bi-arrow-left"></i>
+        Volver
+    </a>
+
+</div>
+
     <div class="formulario">
         <h2>AGREGAR PROVEEDOR</h2>
     <form action="ProveedorServlet" method="POST">

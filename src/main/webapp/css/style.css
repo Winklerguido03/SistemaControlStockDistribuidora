@@ -1,13 +1,35 @@
-header nav{
-    background-color:yellow; !important
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+
+.navbar{
+    background-color:#f2c94c !important;
+}
+
+.navbar-brand{
+    color:black;
+}
+
+.nav-item{
+   font-family:'Oswald',sans-serif;
+}
+
+.nav-item:hover{
+   background-color:#f0f2f5;
 }
 
 .btnLogin{
     text-decoration:none;
+    font-family:'Oswald',sans-serif;
     padding:10px;
-    border:1px solid orange;
-    background-color:orange;
-    color:black;
+    border:1px solid rgba(0,0,0, 0.65);
+    background-color:#f2c94c;
+    color:rgba(0,0,0, 0.65);
+    display:inline-block;
+}
+
+.btnLogin:hover{
+    background-color: #f0f2f5;
+    border:1px solid black;
+    color: black;
 }
 
 main{
@@ -22,9 +44,9 @@ main{
 .btnAgregar{
     margin:100px;
     display:flex;
-    background-color: orange;
-    border: 1px solid orange;
-    color: black;
+    background-color: #f2c94c;
+    border: 1px solid black;
+    color: rgba(0,0,0, 0.65);
     font-weight: bolder;
     text-align:center;
     justify-content:center;
@@ -34,7 +56,8 @@ main{
 }
 
 .btnAgregar:hover{
-    background-color: white;
-    border:1px solid orange;
-    color: orange;
+    font-family:'Oswald',sans-serif;
+    background-color: #212529;
+    border:1px solid black;
+    color: #f0f2f5;
 }

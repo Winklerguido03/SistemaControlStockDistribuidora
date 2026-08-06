@@ -17,7 +17,7 @@
       rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"/>
 
     <!-- CSS Personalizado -->
-    <link rel="stylesheet" href="css/styleLogin.css" />
+    <link rel="stylesheet" href="css/styleIngresosEgresos.css" />
   </head>
 <body>
 <header>
@@ -31,24 +31,25 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="productos.jsp">Productos</a>
+          <a class="nav-link" href="productos.jsp">PRODUCTOS</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="proveedores.jsp">Proveedores</a>
+          <a class="nav-link" href="proveedores.jsp">PROVEEDORES</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="categorias.jsp">Categorias</a>
+          <a class="nav-link" href="categorias.jsp">CATEGORIAS</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="ingresos.jsp">Ingresos</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="egresos.jsp">Egresos</a>
-        </li>
-        <c:if test="${sessionScope.usuario != null}">
-                <a class="btnLogin" href="login.jsp">CERRAR SESION</a>
-                </c:if>
+
       </ul>
+
+      <c:if test="${sessionScope.usuario != null}">
+                               <div class="ms-lg-auto mt-3 mt-lg-0">
+                                           <a class="btnLogin" href="login.jsp">
+                                               CERRAR SESION
+                                           </a>
+                                       </div>
+                </c:if>
+
     </div>
   </div>
 </nav>
@@ -56,6 +57,15 @@
 </header>
 
 <main>
+
+<div class="d-flex mb-3">
+
+    <a href="ProductoServlet" class="btn btn-secondary ms-auto">
+        <i class="bi bi-arrow-left"></i>
+        Volver
+    </a>
+
+</div>
 
     <div class="formulario">
         <h2>EGRESOS</h2>
@@ -91,7 +101,7 @@
 
         <br><br>
 
-        <input type="submit" value="Registrar egreso">
+        <input class="btn" type="submit" value="Registrar egreso">
 
     </form>
     </div>

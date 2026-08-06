@@ -31,19 +31,22 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="ProductoServlet">Productos</a>
+          <a class="nav-link" href="ProductoServlet">PRODUCTOS</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="ProveedorServlet">Proveedores</a>
+          <a class="nav-link" href="ProveedorServlet">PROVEEDORES</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="CategoriaServlet">Categorias</a>
+          <a class="nav-link" href="CategoriaServlet">CATEGORIAS</a>
         </li>
-
-        <c:if test="${sessionScope.usuario != null}">
-                <a class="btnLogin" href="login.jsp">CERRAR SESION</a>
-                </c:if>
       </ul>
+      <c:if test="${sessionScope.usuario != null}">
+                               <div class="ms-lg-auto mt-3 mt-lg-0">
+                                           <a class="btnLogin" href="login.jsp">
+                                               CERRAR SESION
+                                           </a>
+                                       </div>
+                </c:if>
     </div>
   </div>
 </nav>
@@ -54,30 +57,29 @@
 
           <div class="container mt-4">
 
-              <div class="d-flex justify-content-between align-items-center mb-3">
+              <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3 mb-3">
 
                   <h2>Productos</h2>
 
                   <div class="botonesIngresoEgreso">
-                      <a href="IngresoServlet"
-                                           class="btn btn-success">
+                      <a href="IngresoServlet" class="btn btn-success">
 
                                             <i class="bi bi-plus-circle"></i>
-                                            Nuevo Ingreso
+                                            NUEVO INGRESO
 
                                         </a>
                                         <a href="EgresoServlet"
                                                              class="btn btn-success">
 
                                                               <i class="bi bi-plus-circle"></i>
-                                                              Nuevo Egreso
+                                                              NUEVO EGRESO
 
                                                           </a>
                   </div>
 
 
               </div>
-
+              <div class="table-responsive">
               <table class="table table-striped table-hover table-bordered align-middle">
 
                   <thead class="table-dark">
@@ -146,7 +148,7 @@
                   </tbody>
 
               </table>
-
+              </div>
           </div>
 
     </main>

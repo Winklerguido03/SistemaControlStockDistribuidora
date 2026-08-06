@@ -31,51 +31,92 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="ProductoServlet">Productos</a>
+          <a class="nav-link" href="ProductoServlet">PRODUCTOS</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="ProveedorServlet">Proveedores</a>
+          <a class="nav-link" href="ProveedorServlet">PROVEEDORES</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="CategoriaServlet">Categorias</a>
+          <a class="nav-link" href="CategoriaServlet">CATEGORIAS</a>
         </li>
-
-        <c:if test="${sessionScope.usuario != null}">
-                <a class="btnLogin" href="login.jsp">CERRAR SESION</a>
-                </c:if>
       </ul>
+      <c:if test="${sessionScope.usuario != null}">
+                               <div class="ms-lg-auto mt-3 mt-lg-0">
+                                           <a class="btnLogin" href="login.jsp">
+                                               CERRAR SESION
+                                           </a>
+                                       </div>
+                </c:if>
     </div>
   </div>
 </nav>
 
 </header>
 <main>
- <c:forEach var="proveedor" items="${listaProveedores}">
 
-              <div class="d-flex justify-content-between align-items-center border rounded p-2 mb-2">
+<div class="table-responsive">
+                  <table class="table table-striped table-hover table-bordered align-middle">
 
-                  <a href="ProductosProveedorServlet?idProveedor=${proveedor.idProveedor}"
-                     class="text-decoration-none fw-bold">
-                      ${proveedor.nombre}
-                  </a>
+                      <thead class="table-dark">
 
-                  <div>
+                      <tr>
 
-                      <a href="ProveedorServlet?operacion=editar&id=${proveedor.idProveedor}"
-                         class="btn btn-warning btn-sm">
-                          <i class="bi bi-pencil"></i>
-                      </a>
+                          <th>Nombre</th>
+                          <th>   </th>
 
-                      <a href="ProveedorServlet?operacion=eliminar&id=${proveedor.idProveedor}"
-                         class="btn btn-danger btn-sm">
-                          <i class="bi bi-trash"></i>
-                      </a>
+                      </tr>
 
+                      </thead>
+
+                      <tbody>
+
+                      <c:forEach var="proveedor" items="${listaProveedores}">
+
+                          <tr>
+
+                              <td><a href="ProductosProveedorServlet?idProveedor=${proveedor.idProveedor}"
+                                                       class="text-decoration-none fw-bold">
+                                                        ${proveedor.nombre}
+                                                    </a></td>
+
+                              <td>
+
+                                  <a href="ProveedorServlet?operacion=editar&id=${proveedor.idProveedor}"
+                                     class="btn btn-warning btn-sm">
+
+                                      Editar
+
+                                  </a>
+
+                                  <a href="ProveedorServlet?operacion=eliminar&id=${proveedor.idProveedor}"
+                                                           class="btn btn-danger btn-sm">
+                                                            Eliminar
+                                                        </a>
+
+                              </td>
+
+                          </tr>
+
+                      </c:forEach>
+
+                      <c:if test="${empty listaProveedores}">
+
+                          <tr>
+
+                              <td colspan="8" class="text-center">
+
+                                  No hay proveedores registrados.
+
+                              </td>
+
+                          </tr>
+
+                      </c:if>
+
+                      </tbody>
+
+                  </table>
                   </div>
-
-              </div>
-
-          </c:forEach>
 
           <a class="btnAgregar" href="agregarProveedor.jsp">+</a>
 </main>

@@ -1,13 +1,35 @@
-header nav{
-    background-color:yellow; !important
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+
+.navbar{
+    background-color:#f2c94c !important;
+}
+
+.navbar-brand{
+    color:black;
+}
+
+.nav-item{
+   font-family:'Oswald',sans-serif;
+}
+
+.nav-item:hover{
+   background-color:#f0f2f5;
 }
 
 .btnLogin{
-    text-decoration:none;
-    padding:10px;
-    border:1px solid orange;
-    background-color:orange;
-    color:black;
+   text-decoration:none;
+   font-family:'Oswald',sans-serif;
+   padding:10px;
+   border:1px solid rgba(0,0,0, 0.65);
+   background-color:#f2c94c;
+   color:rgba(0,0,0, 0.65);
+   display:inline-block;
+}
+
+.btnLogin:hover{
+    background-color: #f0f2f5;
+    border:1px solid black;
+    color: black;
 }
 
 main{
@@ -22,30 +44,50 @@ main div div a{
     border:1px solid orange !important;
 }
 
+
 .botonesIngresoEgreso{
-    justify-content:flex-end;
+        display:flex;
+        gap:10px;
+        flex-wrap:wrap;
+        justify-content:flex-end;
 }
 
 tbody tr td{
     background-color:#d6d6d6 !important;
 }
 
-.btnAgregar{
-    margin:100px;
-    display:flex;
-    background-color: orange;
-    border: 1px solid orange;
-    color: black;
-    font-weight: bolder;
-    text-align:center;
-    justify-content:center;
-    width:50px;
-    height:50px;
+.btn{
     text-decoration:none;
+    font-family:'Oswald',sans-serif;
+    padding:10px;
+    border:1px solid #f2c94c !important;
+    background-color:#f2c94c !important;
+    color:rgba(0,0,0, 0.65) !important;
+    display:inline-block;
 }
 
-.btnAgregar:hover{
-    background-color: white;
-    border:1px solid orange;
-    color: orange;
+.btn:hover{
+    background-color: #212529 !important;
+    border:1px solid black !important;
+    color: #f0f2f5 !important;
+}
+
+@media (max-width:768px){
+
+    h2{
+        text-align:center;
+    }
+
+    .botonesIngresoEgreso{
+        width:100%;
+        justify-content:center;
+    }
+
+    .botonesIngresoEgreso .btn{
+        width:100%;
+    }
+
+    .table{
+        font-size:14px;
+    }
 }
