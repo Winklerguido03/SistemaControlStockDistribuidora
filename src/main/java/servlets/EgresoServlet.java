@@ -8,6 +8,7 @@ import entities.Movimiento;
 import entities.Producto;
 import entities.Usuario;
 import enums.TipoMovimiento;
+import exceptions.StockInsuficienteException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -77,58 +78,54 @@ public class EgresoServlet extends HttpServlet {
             return;
         }
 
+        try {
+            //validar stock
+            if (producto.getStock() < cantidad) {
+                throw new StockInsuficienteException(
+                        "Stock insuficiente. Disponible: "
+                                + producto.getStock()
+                );
+            }
 
-        // Validar stock
-        if (producto.getStock() < cantidad) {
-
-            request.setAttribute("error",
-                    "Stock insuficiente. Disponible: "
-                            + producto.getStock()
+            // Restar stock
+            producto.setStock(
+                    producto.getStock() - cantidad
             );
+
+            productoDAO.update(producto);
+
+            // Crear movimiento
+            Movimiento movimiento = new Movimiento();
+
+            movimiento.setFecha(new Date());
+            movimiento.setTipo(TipoMovimiento.EGRESO);
+            movimiento.setUsuario(usuario);
+
+            movimientoDAO.insert(movimiento);
+
+            // Crear detalle movimiento
+            DetalleMovimiento detalle = new DetalleMovimiento();
+
+            detalle.setMovimiento(movimiento);
+            detalle.setProducto(producto);
+            detalle.setCantidad(cantidad);
+
+            detalleMovimientoDAO.insert(detalle);
+
+            response.sendRedirect("ProductoServlet");
+
+        } catch (StockInsuficienteException e) {
+
+            request.setAttribute("error", e.getMessage());
 
             request.setAttribute("listaProductos",
                     productoDAO.getAll()
             );
 
-
             request.getRequestDispatcher("egresos.jsp")
                     .forward(request, response);
-
-            return;
         }
 
-
-
-        // Restar stock
-        producto.setStock(
-                producto.getStock() - cantidad
-        );
-
-        productoDAO.update(producto);
-
-
-
-        // Crear movimiento
-        Movimiento movimiento = new Movimiento();
-
-        movimiento.setFecha(new Date());
-        movimiento.setTipo(TipoMovimiento.EGRESO);
-        movimiento.setUsuario(usuario);
-
-        movimientoDAO.insert(movimiento);
-
-        // Crear detalle movimiento
-        DetalleMovimiento detalle = new DetalleMovimiento();
-
-        detalle.setMovimiento(movimiento);
-        detalle.setProducto(producto);
-        detalle.setCantidad(cantidad);
-
-        detalleMovimientoDAO.insert(detalle);
-
-
-
-        response.sendRedirect("ProductoServlet");
 
     }
 
