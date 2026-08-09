@@ -18,7 +18,6 @@ import java.util.concurrent.ConcurrentHashMap;
 public class SesionServlet extends HttpServlet {
 
     private UsuarioDAO usuarioDao = new UsuarioDAO();
-    // fix: se guardaran sesiones en vez de usuarios
     private static Map<String, HttpSession> sesionesActivas = new ConcurrentHashMap<>();
 
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -113,7 +112,6 @@ public class SesionServlet extends HttpServlet {
         sesion.setAttribute("usuario", usuario);
         sesionesActivas.put(username, sesion);
 
-        // No es necesario mandar el mensaje de éxito a "inicio" a menos que lo leas allá
         return "DashboardServlet";
     }
 

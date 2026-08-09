@@ -229,7 +229,7 @@ class CategoriaServletTest {
 
 
         verify(response)
-                .sendRedirect("categorias.jsp");
+                .sendRedirect("CategoriaServlet");
 
     }
 

@@ -44,7 +44,6 @@ class ProductoDAOTest {
     }
 
 
-
     @Test
     void insert_deberiaRegistrarProducto() throws Exception {
 
@@ -56,7 +55,6 @@ class ProductoDAOTest {
                 .thenReturn(pst);
 
 
-
         ProductoDAO dao = Mockito.spy(new ProductoDAO());
 
 
@@ -65,20 +63,18 @@ class ProductoDAOTest {
                 .obtenerConexion();
 
 
-
         Producto producto = crearProducto();
 
 
         dao.insert(producto);
 
 
-
-        verify(pst).setString(1,"Palitos Salados 500g");
-        verify(pst).setInt(2,2000);
-        verify(pst).setInt(3,3500);
-        verify(pst).setInt(4,30);
-        verify(pst).setInt(5,1);
-        verify(pst).setInt(6,1);
+        verify(pst).setString(1, "Palitos Salados 500g");
+        verify(pst).setInt(2, 2000);
+        verify(pst).setInt(3, 3500);
+        verify(pst).setInt(4, 30);
+        verify(pst).setInt(5, 1);
+        verify(pst).setInt(6, 1);
 
 
         verify(pst).executeUpdate();
@@ -86,8 +82,6 @@ class ProductoDAOTest {
         verify(conn).close();
 
     }
-
-
 
 
     @Test
@@ -99,14 +93,12 @@ class ProductoDAOTest {
         ResultSet rs = mock(ResultSet.class);
 
 
-
         when(conn.prepareStatement(anyString()))
                 .thenReturn(pst);
 
 
         when(pst.executeQuery())
                 .thenReturn(rs);
-
 
 
         when(rs.next())
@@ -148,7 +140,6 @@ class ProductoDAOTest {
                 .thenReturn("Los Rusitos");
 
 
-
         ProductoDAO dao = Mockito.spy(new ProductoDAO());
 
 
@@ -157,19 +148,14 @@ class ProductoDAOTest {
                 .obtenerConexion();
 
 
-
         Producto producto = dao.getById(1);
 
 
-
         assertNotNull(producto);
-        assertEquals("Palitos Salados 500g",producto.getNombre());
-        assertEquals(30,producto.getStock());
+        assertEquals("Palitos Salados 500g", producto.getNombre());
+        assertEquals(30, producto.getStock());
 
     }
-
-
-
 
 
     @Test
@@ -179,7 +165,6 @@ class ProductoDAOTest {
         Connection conn = mock(Connection.class);
         PreparedStatement pst = mock(PreparedStatement.class);
         ResultSet rs = mock(ResultSet.class);
-
 
 
         when(conn.prepareStatement(anyString()))
@@ -194,7 +179,6 @@ class ProductoDAOTest {
                 .thenReturn(false);
 
 
-
         ProductoDAO dao = Mockito.spy(new ProductoDAO());
 
 
@@ -203,9 +187,7 @@ class ProductoDAOTest {
                 .obtenerConexion();
 
 
-
         Producto resultado = dao.getById(99);
-
 
 
         assertNull(resultado);
@@ -213,29 +195,28 @@ class ProductoDAOTest {
     }
 
 
-
-
-
     @Test
     void existsById_deberiaSerTrueCuandoExiste() throws Exception {
 
+        Connection conn = mock(Connection.class);
+        PreparedStatement pst = mock(PreparedStatement.class);
+        ResultSet rs = mock(ResultSet.class);
+
+        when(conn.prepareStatement(anyString())).thenReturn(pst);
+        when(pst.executeQuery()).thenReturn(rs);
+        when(rs.next()).thenReturn(true);
 
         ProductoDAO dao = Mockito.spy(new ProductoDAO());
 
-
-        doReturn(crearProducto())
-                .when(dao)
-                .getById(1);
-
-
+        doReturn(conn)
+                .when((AdmConexion) dao)
+                .obtenerConexion();
 
         assertTrue(
                 dao.existsById(1)
         );
 
     }
-
-
 
 
     @Test
@@ -250,15 +231,11 @@ class ProductoDAOTest {
                 .getById(99);
 
 
-
         assertFalse(
                 dao.existsById(99)
         );
 
     }
-
-
-
 
 
     @Test
@@ -269,10 +246,8 @@ class ProductoDAOTest {
         PreparedStatement pst = mock(PreparedStatement.class);
 
 
-
         when(conn.prepareStatement(anyString()))
                 .thenReturn(pst);
-
 
 
         ProductoDAO dao = Mockito.spy(new ProductoDAO());
@@ -283,13 +258,11 @@ class ProductoDAOTest {
                 .obtenerConexion();
 
 
-
         dao.delete(1);
 
 
-
         verify(pst)
-                .setInt(1,1);
+                .setInt(1, 1);
 
 
         verify(pst)
@@ -299,9 +272,6 @@ class ProductoDAOTest {
     }
 
 
-
-
-
     @Test
     void getByNombre_deberiaEncontrarProducto() throws Exception {
 
@@ -309,7 +279,6 @@ class ProductoDAOTest {
         Connection conn = mock(Connection.class);
         PreparedStatement pst = mock(PreparedStatement.class);
         ResultSet rs = mock(ResultSet.class);
-
 
 
         when(conn.prepareStatement(anyString()))
@@ -332,7 +301,6 @@ class ProductoDAOTest {
                 .thenReturn("Palitos Salados 500g");
 
 
-
         ProductoDAO dao = Mockito.spy(new ProductoDAO());
 
 
@@ -341,13 +309,11 @@ class ProductoDAOTest {
                 .obtenerConexion();
 
 
-
         Producto producto = dao.getByNombre("Palitos Salados 500g");
 
 
-
         assertNotNull(producto);
-        assertEquals("Palitos Salados 500g",producto.getNombre());
+        assertEquals("Palitos Salados 500g", producto.getNombre());
 
     }
 

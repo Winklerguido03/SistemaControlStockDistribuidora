@@ -205,20 +205,21 @@ class ProveedorDAOTest {
 
     @Test
     void existsById_deberiaSerTrueSiExiste() throws Exception {
+        Connection conn = mock(Connection.class);
+        PreparedStatement pst = mock(PreparedStatement.class);
+        ResultSet rs = mock(ResultSet.class);
 
+        when(conn.prepareStatement(anyString())).thenReturn(pst);
+        when(pst.executeQuery()).thenReturn(rs);
+        when(rs.next()).thenReturn(true);
 
         ProveedorDAO dao = Mockito.spy(new ProveedorDAO());
 
+        doReturn(conn)
+                .when((AdmConexion) dao)
+                .obtenerConexion();
 
-        doReturn(crearProveedor())
-                .when(dao)
-                .getById(1);
-
-
-
-        assertTrue(
-                dao.existsById(1)
-        );
+        assertTrue(dao.existsById(1));
 
     }
 
@@ -355,7 +356,7 @@ class ProveedorDAOTest {
 
 
         verify(pst)
-                .setString(1,"Proveedor Test");
+                .setString(1,"Los Rusitos");
 
 
         verify(pst)

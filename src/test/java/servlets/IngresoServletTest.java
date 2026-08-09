@@ -149,24 +149,6 @@ class IngresoServletTest {
 
 
 
-        Producto productoGuardado =
-                new Producto();
-
-
-
-        productoGuardado.setIdProducto(1);
-        productoGuardado.setNombre("Alfajor");
-
-
-
-        when(productoDAO.getByNombre("Alfajor"))
-                .thenReturn(
-                        productoGuardado
-                );
-
-
-
-
         HttpServletRequest request =
                 mock(HttpServletRequest.class);
 

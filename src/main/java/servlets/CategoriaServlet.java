@@ -87,7 +87,6 @@ public class CategoriaServlet extends HttpServlet {
                 Categoria categoria = new Categoria();
                 categoria.setNombre(nombreCategoria);
 
-                categoriaDAO = new CategoriaDAO();
                 categoriaDAO.insert(categoria);
 
                 response.sendRedirect("CategoriaServlet");

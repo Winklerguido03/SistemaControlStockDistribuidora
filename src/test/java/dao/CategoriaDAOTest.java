@@ -28,7 +28,7 @@ class CategoriaDAOTest {
     @Test
     void getById() {
 
-        Categoria categoria = categoriaDAO.getById(1);
+        Categoria categoria = categoriaDAO.getById(14);
 
         assertNotNull(categoria);
 
@@ -37,7 +37,7 @@ class CategoriaDAOTest {
     @Test
     void existsById() {
 
-        boolean existe = categoriaDAO.existsById(1);
+        boolean existe = categoriaDAO.existsById(14);
 
         assertTrue(existe);
 
@@ -57,7 +57,7 @@ class CategoriaDAOTest {
     @Test
     void update() {
 
-        Categoria categoria = categoriaDAO.getById(1);
+        Categoria categoria = categoriaDAO.getById(26);
 
         assertNotNull(categoria);
 

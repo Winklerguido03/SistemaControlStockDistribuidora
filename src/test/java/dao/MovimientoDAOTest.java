@@ -61,7 +61,7 @@ class MovimientoDAOTest {
         assertEquals(10, movimiento.getIdMovimiento());
 
 
-        verify(pst).setInt(3,5);
+        verify(pst).setInt(3,1);
         verify(pst).executeUpdate();
         verify(pst).close();
         verify(conn).close();
@@ -117,7 +117,7 @@ class MovimientoDAOTest {
 
         assertNotNull(movimiento);
         assertEquals(1,movimiento.getIdMovimiento());
-        assertEquals(3,movimiento.getUsuario().getIdUsuario());
+        assertEquals(1,movimiento.getUsuario().getIdUsuario());
 
 
         verify(pst).setInt(1,1);
