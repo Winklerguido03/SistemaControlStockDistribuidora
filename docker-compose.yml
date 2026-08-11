@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  # 1. Servicio de la Base de Datos (MySQL)
+  gestion-db:
+    image: mysql:8.0
+    container_name: gestion_mysql_db
+    restart: always
+    environment:
+      # <-- ESTA VARIABLE CREA LA BD OBLIGATORIAMENTE
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: gestiondistribuidora
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      # Mapeamos la carpeta que contiene a init.sql
+      - ./src/main/resources/bd:/docker-entrypoint-initdb.d
+    networks:
+      - gestion-network
+
+  # 2. Servicio de tu Aplicación Java (Web)
+  gestion-app:
+    build: .
+    container_name: gestion_java_app
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_URL=jdbc:mysql://gestion-db:3306/gestiondistribuidora?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
+      - DB_USER=root
+      - DB_PASS=root
+    depends_on:
+      - gestion-db
+    networks:
+      - gestion-network
+
+volumes:
+  mysql_data:
+
+networks:
+  gestion-network:
+    driver: bridge

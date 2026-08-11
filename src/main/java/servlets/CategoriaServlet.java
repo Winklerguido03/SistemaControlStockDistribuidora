@@ -33,7 +33,7 @@ public class CategoriaServlet extends HttpServlet {
             return;
         }
 
-        //Para eliminar una noticia
+        //Para eliminar una categoria
         String accion = request.getParameter("operacion");
 
         if (accion != null) {

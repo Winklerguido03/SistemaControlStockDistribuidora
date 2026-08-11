@@ -34,7 +34,7 @@ public class ProveedorServlet extends HttpServlet {
             return;
         }
 
-        //Para eliminar una noticia
+        //Para eliminar un proveedor
         String accion = request.getParameter("operacion");
 
         if (accion != null) {
