@@ -99,11 +99,7 @@ public class SesionServlet extends HttpServlet {
             req.getSession().setAttribute("mensajeError", "Error en el sistema de autenticación.");
             return "login.jsp";
         }
-/*
-    HttpSession sesion = req.getSession(true);
-    req.changeSessionId();
-    sesion.setAttribute("usuario", usuario);
-    sesionesActivas.put(email, sesion);*/
+
         HttpSession sesionVieja = req.getSession(false);
         if (sesionVieja != null) {
             sesionVieja.invalidate();
