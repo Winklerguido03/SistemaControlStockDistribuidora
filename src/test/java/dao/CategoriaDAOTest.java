@@ -1,12 +1,7 @@
 package dao;
 
 import entities.Categoria;
-import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 
 import java.util.List;
 
@@ -17,45 +12,40 @@ class CategoriaDAOTest {
     private final CategoriaDAO categoriaDAO = new CategoriaDAO();
 
     @Test
-    void getAll() {
+    void getAll_deberiaDevolverLista() {
 
         List<Categoria> categorias = categoriaDAO.getAll();
 
         assertNotNull(categorias);
-
     }
 
     @Test
-    void getById() {
+    void getById_deberiaDevolverCategoria() {
 
         Categoria categoria = categoriaDAO.getById(14);
 
         assertNotNull(categoria);
-
     }
 
     @Test
-    void existsById() {
+    void existsById_deberiaDevolverTrueSiExiste() {
 
         boolean existe = categoriaDAO.existsById(14);
 
         assertTrue(existe);
-
     }
 
     @Test
-    void insert() {
+    void insert_deberiaRegistrarCategoria() {
 
         Categoria categoria = new Categoria();
-
         categoria.setNombre("Categoria Test");
 
         assertDoesNotThrow(() -> categoriaDAO.insert(categoria));
-
     }
 
     @Test
-    void update() {
+    void update_deberiaActualizarCategoria() {
 
         Categoria categoria = categoriaDAO.getById(54);
 
@@ -67,17 +57,15 @@ class CategoriaDAOTest {
 
         assertDoesNotThrow(() -> categoriaDAO.update(categoria));
 
-        // Restaurar el nombre original
+        // Restaurar el estado original
         categoria.setNombre(nombreOriginal);
         categoriaDAO.update(categoria);
-
     }
 
     @Test
-    void delete() {
+    void delete_deberiaEliminarCategoria() {
 
         Categoria categoria = new Categoria();
-
         categoria.setNombre("Categoria Eliminar");
 
         categoriaDAO.insert(categoria);
@@ -86,8 +74,8 @@ class CategoriaDAOTest {
 
         Categoria ultima = categorias.get(categorias.size() - 1);
 
-        assertDoesNotThrow(() -> categoriaDAO.delete(ultima.getIdCategoria()));
-
+        assertDoesNotThrow(
+                () -> categoriaDAO.delete(ultima.getIdCategoria())
+        );
     }
-
 }

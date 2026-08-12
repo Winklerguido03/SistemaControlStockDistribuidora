@@ -20,20 +20,13 @@ class CategoriaServletTest {
     private CategoriaServlet crearServletConDAO(CategoriaDAO dao)
             throws Exception {
 
+        CategoriaServlet servlet = new CategoriaServlet();
 
-        CategoriaServlet servlet =
-                new CategoriaServlet();
-
-
-        Field campo =
-                CategoriaServlet.class
-                        .getDeclaredField("categoriaDAO");
-
+        Field campo = CategoriaServlet.class.getDeclaredField("categoriaDAO");
 
         campo.setAccessible(true);
 
         campo.set(servlet, dao);
-
 
         return servlet;
     }
@@ -43,325 +36,147 @@ class CategoriaServletTest {
     void doGet_sinUsuario_deberiaRedirigirLogin()
             throws Exception {
 
+        CategoriaServlet servlet = new CategoriaServlet();
 
-        CategoriaServlet servlet =
-                new CategoriaServlet();
+        HttpServletRequest request = mock(HttpServletRequest.class);
 
+        HttpServletResponse response = mock(HttpServletResponse.class);
 
+        HttpSession session = mock(HttpSession.class);
 
-        HttpServletRequest request =
-                mock(HttpServletRequest.class);
+        when(request.getSession()).thenReturn(session);
 
-
-        HttpServletResponse response =
-                mock(HttpServletResponse.class);
-
-
-        HttpSession session =
-                mock(HttpSession.class);
-
-
-
-        when(request.getSession())
-                .thenReturn(session);
-
-
-        when(session.getAttribute("usuario"))
-                .thenReturn(null);
-
-
+        when(session.getAttribute("usuario")).thenReturn(null);
 
         servlet.doGet(request,response);
 
-
-
-        verify(response)
-                .sendRedirect("login.jsp");
+        verify(response).sendRedirect("login.jsp");
 
     }
-
-
 
 
     @Test
     void doGet_conUsuario_deberiaMostrarCategorias()
             throws Exception {
 
+        CategoriaDAO dao = mock(CategoriaDAO.class);
 
-        CategoriaDAO dao =
-                mock(CategoriaDAO.class);
-
-
-
-        List<Categoria> lista =
-                new ArrayList<>();
-
+        List<Categoria> lista = new ArrayList<>();
 
         lista.add(new Categoria("Bebidas"));
 
+        when(dao.getAll()).thenReturn(lista);
 
+        CategoriaServlet servlet = crearServletConDAO(dao);
 
-        when(dao.getAll())
-                .thenReturn(lista);
+        HttpServletRequest request = mock(HttpServletRequest.class);
 
+        HttpServletResponse response = mock(HttpServletResponse.class);
 
+        HttpSession session = mock(HttpSession.class);
 
-        CategoriaServlet servlet =
-                crearServletConDAO(dao);
+        RequestDispatcher dispatcher = mock(RequestDispatcher.class);
 
+        when(request.getSession()).thenReturn(session);
 
+        when(session.getAttribute("usuario")).thenReturn(new Usuario());
 
-
-        HttpServletRequest request =
-                mock(HttpServletRequest.class);
-
-
-        HttpServletResponse response =
-                mock(HttpServletResponse.class);
-
-
-        HttpSession session =
-                mock(HttpSession.class);
-
-
-
-        RequestDispatcher dispatcher =
-                mock(RequestDispatcher.class);
-
-
-
-        when(request.getSession())
-                .thenReturn(session);
-
-
-        when(session.getAttribute("usuario"))
-                .thenReturn(new Usuario());
-
-
-        when(request.getRequestDispatcher("categorias.jsp"))
-                .thenReturn(dispatcher);
-
-
-
+        when(request.getRequestDispatcher("categorias.jsp")).thenReturn(dispatcher);
 
         servlet.doGet(request,response);
 
+        verify(request).setAttribute("listaCategorias", lista);
 
-
-
-        verify(request)
-                .setAttribute(
-                        "listaCategorias",
-                        lista
-                );
-
-
-        verify(dispatcher)
-                .forward(
-                        request,
-                        response
-                );
+        verify(dispatcher).forward(request, response);
 
     }
-
-
-
-
-
 
 
     @Test
     void doGet_eliminar_deberiaLlamarDelete()
             throws Exception {
 
+        CategoriaDAO dao = mock(CategoriaDAO.class);
 
+        CategoriaServlet servlet = crearServletConDAO(dao);
 
-        CategoriaDAO dao =
-                mock(CategoriaDAO.class);
+        HttpServletRequest request = mock(HttpServletRequest.class);
 
+        HttpServletResponse response = mock(HttpServletResponse.class);
 
+        HttpSession session = mock(HttpSession.class);
 
-        CategoriaServlet servlet =
-                crearServletConDAO(dao);
+        when(request.getSession()).thenReturn(session);
 
+        when(session.getAttribute("usuario")).thenReturn(new Usuario());
 
+        when(request.getParameter("operacion")).thenReturn("eliminar");
 
-
-        HttpServletRequest request =
-                mock(HttpServletRequest.class);
-
-
-        HttpServletResponse response =
-                mock(HttpServletResponse.class);
-
-
-        HttpSession session =
-                mock(HttpSession.class);
-
-
-
-        when(request.getSession())
-                .thenReturn(session);
-
-
-        when(session.getAttribute("usuario"))
-                .thenReturn(new Usuario());
-
-
-
-        when(request.getParameter("operacion"))
-                .thenReturn("eliminar");
-
-
-        when(request.getParameter("id"))
-                .thenReturn("5");
-
-
-
+        when(request.getParameter("id")).thenReturn("5");
 
         servlet.doGet(request,response);
 
+        verify(dao).delete(5);
 
-
-        verify(dao)
-                .delete(5);
-
-
-
-        verify(response)
-                .sendRedirect("CategoriaServlet");
+        verify(response).sendRedirect("CategoriaServlet");
 
     }
-
-
-
-
-
 
 
     @Test
     void doPost_nuevo_deberiaInsertarCategoria()
             throws Exception {
 
+        CategoriaDAO dao = mock(CategoriaDAO.class);
 
-        CategoriaDAO dao =
-                mock(CategoriaDAO.class);
+        CategoriaServlet servlet = crearServletConDAO(dao);
 
+        HttpServletRequest request = mock(HttpServletRequest.class);
 
+        HttpServletResponse response = mock(HttpServletResponse.class);
 
-        CategoriaServlet servlet =
-                crearServletConDAO(dao);
+        HttpSession session = mock(HttpSession.class);
 
+        when(request.getSession()).thenReturn(session);
 
+        when(session.getAttribute("usuario")).thenReturn(new Usuario());
 
+        when(request.getParameter("operacion")).thenReturn("nuevo");
 
-        HttpServletRequest request =
-                mock(HttpServletRequest.class);
-
-
-        HttpServletResponse response =
-                mock(HttpServletResponse.class);
-
-
-
-        HttpSession session =
-                mock(HttpSession.class);
-
-
-
-        when(request.getSession())
-                .thenReturn(session);
-
-
-
-        when(session.getAttribute("usuario"))
-                .thenReturn(new Usuario());
-
-
-
-        when(request.getParameter("operacion"))
-                .thenReturn("nuevo");
-
-
-
-        when(request.getParameter("txtNombreCategoria"))
-                .thenReturn("Golosinas");
-
-
+        when(request.getParameter("txtNombreCategoria")).thenReturn("Golosinas");
 
         servlet.doPost(request,response);
 
+        verify(dao).insert(any(Categoria.class));
 
-
-        verify(dao)
-                .insert(any(Categoria.class));
-
-
-
-        verify(response)
-                .sendRedirect("CategoriaServlet");
+        verify(response).sendRedirect("CategoriaServlet");
 
     }
-
-
-
-
-
 
 
     @Test
     void doPost_actualizar_deberiaActualizarCategoria()
             throws Exception {
 
+        CategoriaDAO dao = mock(CategoriaDAO.class);
 
-        CategoriaDAO dao =
-                mock(CategoriaDAO.class);
+        CategoriaServlet servlet = crearServletConDAO(dao);
 
+        HttpServletRequest request = mock(HttpServletRequest.class);
 
+        HttpServletResponse response = mock(HttpServletResponse.class);
 
-        CategoriaServlet servlet =
-                crearServletConDAO(dao);
+        when(request.getParameter("operacion")).thenReturn("actualizar");
 
+        when(request.getParameter("txtId")).thenReturn("1");
 
-
-
-        HttpServletRequest request =
-                mock(HttpServletRequest.class);
-
-
-        HttpServletResponse response =
-                mock(HttpServletResponse.class);
-
-
-
-        when(request.getParameter("operacion"))
-                .thenReturn("actualizar");
-
-
-
-        when(request.getParameter("txtId"))
-                .thenReturn("1");
-
-
-
-        when(request.getParameter("txtNombreCategoria"))
-                .thenReturn("Nueva Categoria");
-
-
-
+        when(request.getParameter("txtNombreCategoria")).thenReturn("Nueva Categoria");
 
         servlet.doPost(request,response);
 
+        verify(dao).update(any(Categoria.class));
 
-
-
-        verify(dao)
-                .update(any(Categoria.class));
-
-
-
-        verify(response)
-                .sendRedirect("CategoriaServlet");
+        verify(response).sendRedirect("CategoriaServlet");
 
     }
 }

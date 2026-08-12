@@ -1,9 +1,7 @@
 package dao;
 
 import entities.Proveedor;
-import interfaces.AdmConexion;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,8 +15,7 @@ import static org.mockito.Mockito.*;
 
 class ProveedorDAOTest {
 
-    private Proveedor crearProveedor(){
-
+    private Proveedor crearProveedor() {
         Proveedor proveedor = new Proveedor();
 
         proveedor.setIdProveedor(1);
@@ -30,181 +27,36 @@ class ProveedorDAOTest {
         return proveedor;
     }
 
-
-
     @Test
     void insert_deberiaRegistrarProveedor() throws Exception {
 
-
+        // Arrange
         Connection conn = mock(Connection.class);
         PreparedStatement pst = mock(PreparedStatement.class);
-
 
         when(conn.prepareStatement(anyString(), eq(Statement.RETURN_GENERATED_KEYS)))
                 .thenReturn(pst);
 
-
-
-        ProveedorDAO dao = Mockito.spy(new ProveedorDAO());
-
-
-        doReturn(conn)
-                .when((AdmConexion) dao)
-                .obtenerConexion();
-
-
+        ProveedorDAO dao = spy(new ProveedorDAO());
+        doReturn(conn).when(dao).obtenerConexion();
 
         Proveedor proveedor = crearProveedor();
 
-
-
+        // Act
         dao.insert(proveedor);
 
-
-
-        verify(pst).setString(1,"Los Rusitos");
-        verify(pst).setString(2,"3452556677");
-        verify(pst).setString(3,"losrusitos@gmail.com");
-        verify(pst).setString(4,"calle 31");
-
-
+        // Assert
+        verify(pst).setString(1, "Los Rusitos");
+        verify(pst).setString(2, "3452556677");
+        verify(pst).setString(3, "losrusitos@gmail.com");
+        verify(pst).setString(4, "calle 31");
         verify(pst).executeUpdate();
-
-        verify(conn).close();
-
     }
-
-
-
-
 
     @Test
     void getById_deberiaDevolverProveedor() throws Exception {
 
-
-        Connection conn = mock(Connection.class);
-        PreparedStatement pst = mock(PreparedStatement.class);
-        ResultSet rs = mock(ResultSet.class);
-
-
-
-        when(conn.prepareStatement(anyString()))
-                .thenReturn(pst);
-
-
-        when(pst.executeQuery())
-                .thenReturn(rs);
-
-
-        when(rs.next())
-                .thenReturn(true);
-
-
-
-        when(rs.getInt("idProveedor"))
-                .thenReturn(1);
-
-
-        when(rs.getString("nombre"))
-                .thenReturn("Los Rusitos");
-
-
-        when(rs.getString("telefono"))
-                .thenReturn("3452556677");
-
-
-        when(rs.getString("email"))
-                .thenReturn("losrusitos@gmail.com");
-
-
-        when(rs.getString("direccion"))
-                .thenReturn("calle 31");
-
-
-
-
-        ProveedorDAO dao = Mockito.spy(new ProveedorDAO());
-
-
-        doReturn(conn)
-                .when((AdmConexion) dao)
-                .obtenerConexion();
-
-
-
-
-        Proveedor proveedor = dao.getById(1);
-
-
-
-        assertNotNull(proveedor);
-
-        assertEquals(
-                "Los Rusitos",
-                proveedor.getNombre()
-        );
-
-
-        assertEquals(
-                "losrusitos@gmail.com",
-                proveedor.getEmail()
-        );
-
-
-    }
-
-
-
-
-
-
-    @Test
-    void getById_deberiaDevolverNullSiNoExiste() throws Exception {
-
-
-        Connection conn = mock(Connection.class);
-        PreparedStatement pst = mock(PreparedStatement.class);
-        ResultSet rs = mock(ResultSet.class);
-
-
-
-        when(conn.prepareStatement(anyString()))
-                .thenReturn(pst);
-
-
-        when(pst.executeQuery())
-                .thenReturn(rs);
-
-
-        when(rs.next())
-                .thenReturn(false);
-
-
-
-        ProveedorDAO dao = Mockito.spy(new ProveedorDAO());
-
-
-        doReturn(conn)
-                .when((AdmConexion) dao)
-                .obtenerConexion();
-
-
-
-        Proveedor proveedor = dao.getById(99);
-
-
-
-        assertNull(proveedor);
-
-    }
-
-
-
-
-
-
-    @Test
-    void existsById_deberiaSerTrueSiExiste() throws Exception {
+        // Arrange
         Connection conn = mock(Connection.class);
         PreparedStatement pst = mock(PreparedStatement.class);
         ResultSet rs = mock(ResultSet.class);
@@ -213,159 +65,132 @@ class ProveedorDAOTest {
         when(pst.executeQuery()).thenReturn(rs);
         when(rs.next()).thenReturn(true);
 
-        ProveedorDAO dao = Mockito.spy(new ProveedorDAO());
+        when(rs.getInt("idProveedor")).thenReturn(1);
+        when(rs.getString("nombre")).thenReturn("Los Rusitos");
+        when(rs.getString("telefono")).thenReturn("3452556677");
+        when(rs.getString("email")).thenReturn("losrusitos@gmail.com");
+        when(rs.getString("direccion")).thenReturn("calle 31");
 
-        doReturn(conn)
-                .when((AdmConexion) dao)
-                .obtenerConexion();
+        ProveedorDAO dao = spy(new ProveedorDAO());
+        doReturn(conn).when(dao).obtenerConexion();
 
-        assertTrue(dao.existsById(1));
+        // Act
+        Proveedor resultado = dao.getById(1);
 
+        // Assert
+        assertNotNull(resultado);
+        assertEquals("Los Rusitos", resultado.getNombre());
+        assertEquals("losrusitos@gmail.com", resultado.getEmail());
     }
 
-
-
-
-
-
-
     @Test
-    void existsById_deberiaSerFalseSiNoExiste() throws Exception {
+    void getById_deberiaDevolverNullSiNoExiste() throws Exception {
 
-
+        // Arrange
         Connection conn = mock(Connection.class);
         PreparedStatement pst = mock(PreparedStatement.class);
         ResultSet rs = mock(ResultSet.class);
 
+        when(conn.prepareStatement(anyString())).thenReturn(pst);
+        when(pst.executeQuery()).thenReturn(rs);
+        when(rs.next()).thenReturn(false);
 
+        ProveedorDAO dao = spy(new ProveedorDAO());
+        doReturn(conn).when(dao).obtenerConexion();
 
-        when(conn.prepareStatement(anyString()))
-                .thenReturn(pst);
+        // Act
+        Proveedor resultado = dao.getById(99);
 
-
-        when(pst.executeQuery())
-                .thenReturn(rs);
-
-
-        when(rs.next())
-                .thenReturn(false);
-
-
-
-        ProveedorDAO dao = Mockito.spy(new ProveedorDAO());
-
-
-
-        doReturn(conn)
-                .when((AdmConexion) dao)
-                .obtenerConexion();
-
-
-
-        assertFalse(
-                dao.existsById(99)
-        );
-
+        // Assert
+        assertNull(resultado);
     }
 
+    @Test
+    void existsById_deberiaSerTrueSiExiste() throws Exception {
 
+        // Arrange
+        Connection conn = mock(Connection.class);
+        PreparedStatement pst = mock(PreparedStatement.class);
+        ResultSet rs = mock(ResultSet.class);
 
+        when(conn.prepareStatement(anyString())).thenReturn(pst);
+        when(pst.executeQuery()).thenReturn(rs);
+        when(rs.next()).thenReturn(true);
 
+        ProveedorDAO dao = spy(new ProveedorDAO());
+        doReturn(conn).when(dao).obtenerConexion();
 
+        // Act
+        boolean resultado = dao.existsById(1);
 
+        // Assert
+        assertTrue(resultado);
+    }
+
+    @Test
+    void existsById_deberiaSerFalseSiNoExiste() throws Exception {
+
+        // Arrange
+        Connection conn = mock(Connection.class);
+        PreparedStatement pst = mock(PreparedStatement.class);
+        ResultSet rs = mock(ResultSet.class);
+
+        when(conn.prepareStatement(anyString())).thenReturn(pst);
+        when(pst.executeQuery()).thenReturn(rs);
+        when(rs.next()).thenReturn(false);
+
+        ProveedorDAO dao = spy(new ProveedorDAO());
+        doReturn(conn).when(dao).obtenerConexion();
+
+        // Act
+        boolean resultado = dao.existsById(99);
+
+        // Assert
+        assertFalse(resultado);
+    }
 
     @Test
     void delete_deberiaEliminarProveedor() throws Exception {
 
-
+        // Arrange
         Connection conn = mock(Connection.class);
         PreparedStatement pst = mock(PreparedStatement.class);
 
+        when(conn.prepareStatement(anyString())).thenReturn(pst);
 
+        ProveedorDAO dao = spy(new ProveedorDAO());
+        doReturn(conn).when(dao).obtenerConexion();
 
-        when(conn.prepareStatement(anyString()))
-                .thenReturn(pst);
-
-
-
-        ProveedorDAO dao = Mockito.spy(new ProveedorDAO());
-
-
-        doReturn(conn)
-                .when((AdmConexion) dao)
-                .obtenerConexion();
-
-
-
-
+        // Act
         dao.delete(1);
 
-
-
-        verify(pst)
-                .setInt(1,1);
-
-
-        verify(pst)
-                .executeUpdate();
-
-
+        // Assert
+        verify(pst).setInt(1, 1);
+        verify(pst).executeUpdate();
     }
-
-
-
-
-
 
     @Test
     void update_deberiaActualizarProveedor() throws Exception {
 
-
+        // Arrange
         Connection conn = mock(Connection.class);
         PreparedStatement pst = mock(PreparedStatement.class);
 
+        when(conn.prepareStatement(anyString())).thenReturn(pst);
 
+        ProveedorDAO dao = spy(new ProveedorDAO());
 
-        when(conn.prepareStatement(anyString()))
-                .thenReturn(pst);
-
-
-
-        ProveedorDAO dao = Mockito.spy(new ProveedorDAO());
-
-
-        doReturn(true)
-                .when(dao)
-                .existsById(1);
-
-
-
-        doReturn(conn)
-                .when((AdmConexion) dao)
-                .obtenerConexion();
-
-
-
+        doReturn(true).when(dao).existsById(1);
+        doReturn(conn).when(dao).obtenerConexion();
 
         Proveedor proveedor = crearProveedor();
 
-
-
+        // Act
         dao.update(proveedor);
 
-
-
-        verify(pst)
-                .setString(1,"Los Rusitos");
-
-
-        verify(pst)
-                .setInt(5,1);
-
-
-        verify(pst)
-                .executeUpdate();
-
+        // Assert
+        verify(pst).setString(1, "Los Rusitos");
+        verify(pst).setInt(5, 1);
+        verify(pst).executeUpdate();
     }
-
 }

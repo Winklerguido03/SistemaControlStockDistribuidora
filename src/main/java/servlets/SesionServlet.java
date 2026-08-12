@@ -47,7 +47,7 @@ public class SesionServlet extends HttpServlet {
         }
     }
 
-    public static void removerSesionActiva(String username) {
+    static void removerSesionActiva(String username) {
         if (username != null) {
             sesionesActivas.remove(username);
         }
@@ -55,7 +55,7 @@ public class SesionServlet extends HttpServlet {
 
     // metodos
     // para iniciar sesion
-    private void iniciarSesion(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    void iniciarSesion(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         // parámetros de la petición
         String username = req.getParameter("txtUsername");
         String password = req.getParameter("txtPass");
@@ -67,7 +67,7 @@ public class SesionServlet extends HttpServlet {
     }
 
     // para validar email y password
-    private String validarCredenciales(String username, String password, HttpServletRequest req) {
+    String validarCredenciales(String username, String password, HttpServletRequest req) {
         if (username == null || password == null || username.trim().isEmpty() || password.trim().isEmpty()) {
             req.getSession().setAttribute("mensajeError", "Nombre de usuario y contraseña son obligatorios.");
             return "login.jsp";
@@ -111,4 +111,8 @@ public class SesionServlet extends HttpServlet {
         return "DashboardServlet";
     }
 
+
+    public void setUsuarioDao(UsuarioDAO daoMock) {
+        this.usuarioDao=daoMock;
+    }
 }
