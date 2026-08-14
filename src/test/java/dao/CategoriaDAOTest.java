@@ -47,7 +47,7 @@ class CategoriaDAOTest {
     @Test
     void update_deberiaActualizarCategoria() {
 
-        Categoria categoria = categoriaDAO.getById(54);
+        Categoria categoria = categoriaDAO.getById(72);
 
         assertNotNull(categoria);
 
