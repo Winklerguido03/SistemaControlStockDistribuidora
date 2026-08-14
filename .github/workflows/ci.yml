@@ -1,2 +1,47 @@
+name: Java CI/CD Pipeline con Docker
+
 on:
+  push: # Workflow inicia el pipeline cuando hay un push
+   branches: ["main"]
+  pull_request:  # Workflow inicia el pipeline cuando hay un pull
+    branches: ["main"]
+
 jobs:
+  build-and-test:
+    runs-on: ubuntu-latest #job: se ejecuta en un runner Ubuntu
+
+    steps:
+      # 1.Descargar el código del repositorio
+    - name: Checkout del código
+      uses: actions/checkout@v4
+
+      # 2.Configurar el entorno de Java 17 para chequear la compilación previa de maven
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+
+      # 3.Compilar el proyecto localmente para asegurar que no haya errores de sintaxis
+    - name: Compilar con maven
+      run: mvn clean compile
+
+      # 4.Configurar Docker Buildx (herramienta avanzada de Docker para compilar eficientemente
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+      # 5.Probar la construcción completa usando Docker Compose
+      # Esto asegura que tanto el Dockerfile como el aarchivo Compose no tengan errores de formato
+    - name: Verificar Construcción con Docker Compose
+      run: |
+        docker compose build gamer-app
+
+      # 6.Mensaje de éxito
+    - name: Estado del pipeline
+      run: echo "La compilación y la verificación de docker se completaron con éxito..."
+
+      
+
+
+
