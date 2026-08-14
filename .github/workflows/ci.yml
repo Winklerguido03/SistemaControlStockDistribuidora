@@ -35,13 +35,9 @@ jobs:
       # Esto asegura que tanto el Dockerfile como el aarchivo Compose no tengan errores de formato
     - name: Verificar Construcción con Docker Compose
       run: |
-        docker compose build gamer-app
+        docker compose build gestion-app
 
       # 6.Mensaje de éxito
     - name: Estado del pipeline
       run: echo "La compilación y la verificación de docker se completaron con éxito..."
-
-      
-
-
 
